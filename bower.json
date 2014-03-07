@@ -20,6 +20,6 @@
     "tests"
   ],
   "dependencies": {
-    "fine-uploader": "4.3.1"
+    "fine-uploader": "https://github.com/jcbrand/fine-uploader/archive/3.7.1-build.tar.gz"
   }
 }
