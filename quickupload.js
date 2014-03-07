@@ -2,7 +2,8 @@ define([
     "jquery",
     "pat-registry",
     "pat-parser",
-    'pat-inject'
+    "pat-inject",
+    "fine-uploader"
 ], function($, registry, Parser, inject) {
 
     var parser = new Parser("quickupload");
