@@ -119,10 +119,10 @@ define([
                 // Event handler that closes the modal by refreshing the tag
                 // contents area
                 // XXX STAR FIX!! Reset the overflow information again on the sidebar
-                $('aside.sidebar').css('overflow', 'auto').css('overflow-x', 'hidden').css('overflow-y', 'auto');
                 if (ev && ev.type === "keyup" && ev.which !== 27) {
                     return;
                 }
+                $('aside.sidebar').css('overflow', 'auto').css('overflow-x', 'hidden').css('overflow-y', 'auto');
                 ev.preventDefault();
                 ev.stopPropagation();
                 var $parent = $el.parent();
