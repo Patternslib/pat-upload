@@ -201,9 +201,9 @@ define([
                 } else {
                     if (response.error == null) {
                         if (xhr.status == 504) {
-                            response.error = 'timeout';
+                            response.error = 'The timeout has been exceeded. Please check whether you have a stable StarDesk connection by accessing other pages. If you do, please try again.';
                         } else if (xhr.status == 413) {
-                            response.error = 'File too large';
+                            response.error = 'The upload has failed as the file is too large. Please reduce the size of the document and try again.';
                         }
                     }
                     $('.qq-upload-status-text', $el).text(' Upload failed: ' + response.error);
