@@ -123,6 +123,7 @@ define([
                     return;
                 }
                 $('aside.sidebar').css('overflow', 'auto').css('overflow-x', 'hidden').css('overflow-y', 'auto');
+                $('body').removeClass('upload-modal-active');
                 ev.preventDefault();
                 ev.stopPropagation();
                 var $parent = $el.parent();
@@ -165,6 +166,8 @@ define([
                 if (!$panel.is(':visible')) {
                     // XXX STAR FIX: Modal cannot show while overflow is active. Disable temporarily
                     $('aside.sidebar').css('overflow', 'visible').css('overflow-x', 'visible').css('overflow-y', 'visible');
+                    /* refs #719 */
+                    $('body').addClass('upload-modal-active');
                     $panel.show(function () {
                         $panel.trigger('patterns-injected.patterns');
                         $(document).on("keyup.pat-modal", function (ev) {
