@@ -132,6 +132,8 @@ define([
             };
 
             $el.on("click", ".trigger-upload", function (ev) {
+                $('aside.sidebar').css('overflow', 'auto').css('overflow-x', 'hidden').css('overflow-y', 'auto');
+                $('body').removeClass('upload-modal-active');
                 ev.preventDefault();
                 $el.fineUploader('uploadStoredFiles');
             });
