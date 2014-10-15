@@ -1,8 +1,10 @@
 {
   "name": "pat-upload",
-  "version": "1.0",
+  "version": "0.0.1",
   "homepage": "https://github.com/Patternslib/pat-upload",
-  "authors": ["Syslab.com GmbH"],
+  "authors": [
+    "Syslab.com GmbH"
+  ],
   "description": "A pattern for drag & drop file upload via fine-uploader",
   "main": "quickupload.js",
   "keywords": [
@@ -20,5 +22,8 @@
   ],
   "dependencies": {
     "fine-uploader": "https://github.com/jcbrand/fine-uploader/archive/3.7.1-build.tar.gz"
-  }
+  },
+  "moduleType": [
+    "amd"
+  ]
 }
