@@ -1,6 +1,6 @@
 {
   "name": "pat-upload",
-  "version": "1.0",
+  "version": "0.0.1",
   "description": "A pattern for drag & drop file upload via fine-uploader",
   "author": {
     "name": "Jan Carel Brand",
@@ -10,7 +10,9 @@
     "type": "git",
     "url": "git@github.com:Patternslib/pat-upload.git"
   },
-  "dependencies": {"fine-uploader": "4.3.1"},
+  "dependencies": {
+    "bower": "^1.3.12"
+  },
   "devDependencies": {},
   "licenses": [
     {
