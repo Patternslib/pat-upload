@@ -118,11 +118,9 @@ define([
             var closeModal = function (ev) {
                 // Event handler that closes the modal by refreshing the tag
                 // contents area
-                // XXX STAR FIX!! Reset the overflow information again on the sidebar
                 if (ev && ev.type === "keyup" && ev.which !== 27) {
                     return;
                 }
-                $('aside.sidebar').css('overflow', 'auto').css('overflow-x', 'hidden').css('overflow-y', 'auto');
                 $('body').removeClass('upload-modal-active');
                 ev.preventDefault();
                 ev.stopPropagation();
@@ -132,7 +130,6 @@ define([
             };
 
             $el.on("click", ".trigger-upload", function (ev) {
-                $('aside.sidebar').css('overflow', 'auto').css('overflow-x', 'hidden').css('overflow-y', 'auto');
                 $('body').removeClass('upload-modal-active');
                 ev.preventDefault();
                 $el.fineUploader('uploadStoredFiles');
@@ -166,8 +163,6 @@ define([
                     }
                 }
                 if (!$panel.is(':visible')) {
-                    // XXX STAR FIX: Modal cannot show while overflow is active. Disable temporarily
-                    $('aside.sidebar').css('overflow', 'visible').css('overflow-x', 'visible').css('overflow-y', 'visible');
                     /* refs #719 */
                     $('body').addClass('upload-modal-active');
                     $panel.show(function () {
@@ -204,9 +199,9 @@ define([
                         }
                     }
                 } else {
-                    if (response.error == null) {
+                    if (response.error === null) {
                         if (xhr.status == 504) {
-                            response.error = 'The timeout has been exceeded. Please check whether you have a stable StarDesk connection by accessing other pages. If you do, please try again.';
+                            response.error = 'The timeout has been exceeded. Please check whether you have a stable connection by accessing other pages. If you do, please try again.';
                         } else if (xhr.status == 413) {
                             response.error = 'The upload has failed as the file is too large. Please reduce the size of the document and try again.';
                         }
@@ -214,26 +209,7 @@ define([
                     $('.qq-upload-status-text', $el).text(' Upload failed: ' + response.error);
                 }
             });
-
-            var scroll_to_bottom = function() {
-                var diff = $sidebar.children().toArray().reduce(function(acc, el) {
-                    return acc + $(el).outerHeight(true);
-                }, 0) - $sidebar.innerHeight();
-                $sidebar.animate({
-                    scrollTop: diff
-                });
-            };
-            $el.on('onSubmit', scroll_to_bottom);
-            $el.on('onError', scroll_to_bottom);
         }
     };
     registry.register(quickupload);
-
-    $(document).on('qqSuccess', '#sidebar-content', function() {
-        // make sure untagged is open and reload it's content if already open
-        $('#sidebar-content .label-group-template').prev('.open')
-            .patternCollapsible('loadContent');
-        $('#sidebar-content .label-group-template').prev('.closed')
-            .patternCollapsible('open');
-    });
 });
