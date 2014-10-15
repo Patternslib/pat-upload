@@ -1,0 +1,25 @@
+{
+  "name": "patterns.star.quickupload",
+  "version": "1.0",
+  "homepage": "https://github.com/syslabcom/patterns.star.quickupload",
+  "authors": [
+    "Jan Carel Brand <brand@syslab.com>"
+  ],
+  "description": "A quickuploader pattern using fineupload",
+  "main": "quickupload.js",
+  "keywords": [
+    "patterns",
+    "quickupload"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fine-uploader": "https://github.com/jcbrand/fine-uploader/archive/3.7.1-build.tar.gz"
+  }
+}

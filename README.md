@@ -1,4 +1,6 @@
 pat-upload
 ==========
 
-A pattern to create a drop area for upload of multiple files
+A pattern that creates a drop area for uploading multiple files.
+
+Based on [fineuploader](http://fineuploader.com).

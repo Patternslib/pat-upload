@@ -1,0 +1,20 @@
+{
+  "name": "patterns.star.quickupload",
+  "version": "1.0",
+  "description": "A quickuploader pattern",
+  "author": {
+    "name": "Jan Carel Brand",
+    "email": "brand@syslab.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:syslabcom/patterns.star.quickupload.git"
+  },
+  "dependencies": {"fine-uploader": "4.3.1"},
+  "devDependencies": {},
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}
