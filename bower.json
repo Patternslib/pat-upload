@@ -1,15 +1,14 @@
 {
-  "name": "patterns.star.quickupload",
+  "name": "pat-upload",
   "version": "1.0",
-  "homepage": "https://github.com/syslabcom/patterns.star.quickupload",
-  "authors": [
-    "Jan Carel Brand <brand@syslab.com>"
-  ],
-  "description": "A quickuploader pattern using fineupload",
+  "homepage": "https://github.com/Patternslib/pat-upload",
+  "authors": ["Syslab.com GmbH"],
+  "description": "A pattern for drag & drop file upload via fine-uploader",
   "main": "quickupload.js",
   "keywords": [
     "patterns",
-    "quickupload"
+    "quickupload",
+    "fine-uploader"
   ],
   "license": "MIT",
   "ignore": [

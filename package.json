@@ -1,14 +1,14 @@
 {
-  "name": "patterns.star.quickupload",
+  "name": "pat-upload",
   "version": "1.0",
-  "description": "A quickuploader pattern",
+  "description": "A pattern for drag & drop file upload via fine-uploader",
   "author": {
     "name": "Jan Carel Brand",
     "email": "brand@syslab.com"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:syslabcom/patterns.star.quickupload.git"
+    "url": "git@github.com:Patternslib/pat-upload.git"
   },
   "dependencies": {"fine-uploader": "4.3.1"},
   "devDependencies": {},
