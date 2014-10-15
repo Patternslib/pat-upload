@@ -6,7 +6,7 @@ define([
     "fine-uploader"
 ], function($, registry, Parser, inject) {
 
-    var parser = new Parser("quickupload");
+    var parser = new Parser("upload");
     parser.add_argument("dropzone-text");
     parser.add_argument("ie-fallback-button-text");
     parser.add_argument("load-content");
@@ -16,9 +16,9 @@ define([
     parser.add_argument("upload-button-text");
     parser.add_argument("url");
 
-    var quickupload = {
-        name: "quickupload",
-        trigger: '.pat-quickupload',
+    var upload = {
+        name: "upload",
+        trigger: '.pat-upload',
         init: function($el, opts) {
             var $original = $el.clone();
             var cfgs = parser.parse($el, opts, true);
@@ -96,7 +96,7 @@ define([
                 /* Manually call the inject pattern to refresh a specified
                  * area.
                  * The element descriptor is via the "refresh"
-                 * data-pat-quickupload attr and the URL via "load-content"
+                 * data-pat-upload attr and the URL via "load-content"
                  */
                 var $target = $el.closest(cfgs[0].refresh);
                 var url = cfgs[0].loadContent;
@@ -211,5 +211,5 @@ define([
             });
         }
     };
-    registry.register(quickupload);
+    registry.register(upload);
 });

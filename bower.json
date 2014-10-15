@@ -6,11 +6,11 @@
     "Syslab.com GmbH"
   ],
   "description": "A pattern for drag & drop file upload via fine-uploader",
-  "main": "quickupload.js",
+  "main": "src/pat-upload.js",
   "keywords": [
     "patterns",
-    "quickupload",
-    "fine-uploader"
+    "fine-uploader",
+    "pat-upload"
   ],
   "license": "MIT",
   "ignore": [
