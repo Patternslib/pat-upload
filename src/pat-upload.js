@@ -39,20 +39,20 @@
  *
  */
 
-
 define([
-  'jquery',
-  'underscore',
-  'dropzone',
-  'text!./templates/upload.xml',
-  'text!./templates/preview.xml',
-], function($, _, Dropzone, UploadTemplate, PreviewTemplate) {
+  "jquery",
+  "underscore",
+  "dropzone",
+  "pat-registry",
+  "text!./templates/upload.xml",
+  "text!./templates/preview.xml",
+], function($, _, Dropzone, registry, UploadTemplate, PreviewTemplate) {
   'use strict';
 
   /* we do not want this plugin to auto discover */
   Dropzone.autoDiscover = false;
 
-  i18n.loadCatalog('widgets');
+  // i18n.loadCatalog('widgets');
   // var _t = i18n.MessageFactory('widgets');
   var _t = function (str) {
       // XXX: Still need to sort out i18n. Will have to check whether we can
@@ -62,6 +62,7 @@ define([
 
   var upload = {
     name: 'upload',
+    trigger: '.pat-upload',
     defaults: {
       showTitle: true,
       url: null, // XXX MUST provide url to submit to OR be in a form
