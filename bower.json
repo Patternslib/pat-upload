@@ -21,7 +21,10 @@
     "tests"
   ],
   "dependencies": {
-    "fine-uploader": "https://github.com/jcbrand/fine-uploader/archive/3.7.1-build.tar.gz"
+    "fine-uploader": "https://github.com/jcbrand/fine-uploader/archive/3.7.1-build.tar.gz",
+    "underscore": "~1.7.0",
+    "dropzone": "~3.10.2",
+    "requirejs-text": "~2.0.12"
   },
   "moduleType": [
     "amd"
