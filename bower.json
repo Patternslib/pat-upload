@@ -5,11 +5,10 @@
   "authors": [
     "Syslab.com GmbH"
   ],
-  "description": "A pattern for drag & drop file upload via fine-uploader",
+  "description": "A pattern for drag & drop file upload",
   "main": "src/pat-upload.js",
   "keywords": [
     "patterns",
-    "fine-uploader",
     "pat-upload"
   ],
   "license": "MIT",
@@ -21,7 +20,6 @@
     "tests"
   ],
   "dependencies": {
-    "fine-uploader": "https://github.com/jcbrand/fine-uploader/archive/3.7.1-build.tar.gz",
     "underscore": "~1.7.0",
     "dropzone": "~3.10.2",
     "requirejs-text": "~2.0.12"
