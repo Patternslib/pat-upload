@@ -1,43 +1,4 @@
-/* Upload pattern.
- *
- * Options:
- *    showTitle(boolean): show/hide the h1 title (true)
- *    url(string): If not used with a form, this option must provide the URL to submit to or baseUrl with relativePath needs to be used (null)
- *    baseUrl(string): to be used in conjunction with relativePath to generate submission urls based on related items (null)
- *    relativePath(string): again, to be used with baseUrl to create upload url (null)
- *    initialFolder(string): UID of initial folder related items widget should have selected (null)
- *    currentPath(string): Current path related items is starting with (null)
- *    clickable(boolean): If you can click on container to also upload (false)
- *    className(string): value for class attribute in the form element ('upload')
- *    paramName(string): value for name attribute in the file input element ('file')
- *    ajaxUpload(boolean): true or false for letting the widget upload the files via ajax. If false the form will act like a normal form. (true)
- *    wrap(boolean): true or false for wrapping this element using the value of wrapperTemplate. (false)
- *    wrapperTemplate(string): HTML template for wrapping around with this element. ('<div class="upload-container"/>')
- *    resultTemplate(string): HTML template for the element that will contain file information. ('<div class="dz-notice"><p>Drop files here...</p></div><div class="upload-previews"/>')
- *    autoCleanResults(boolean): condition value for the file preview in div element to fadeout after file upload is completed. (true)
- *    previewsContainer(selector): JavaScript selector for file preview in div element. (.upload-previews)
- *    container(selector): JavaScript selector for where to put upload stuff into in case of form. If not provided it will be place before the first submit button. ('')
- *    relatedItems(object): Related items pattern options. Will only use only if relativePath is used to use correct upload destination ({ attributes: ["UID", "Title", "Description", "getURL", "Type", "path", "ModificationDate"], batchSize: 20, basePath: "/", vocabularyUrl: null, width: 500, maximumSelectionSize: 1, placeholder: "Search for item on site..." })
- *
- * Documentation:
- *
- *    # On a div element
- *
- *    {{ example-1 }}
- *
- * Example: example-1
- *    <div class="pat-upload" data-pat-upload='{"url": "/upload",
- *                                              "relatedItems": {
- *                                                  "vocabularyUrl": "/relateditems-test.json"
- *                                              }}'>
- *      <div>
- *        <p>Something here that is useful</p>
- *        <p>Something else here that is useful</p>
- *        <p>Another thing here that is useful</p>
- *      </div>
- *    </div>
- *
- */
+/* Upload pattern */
 
 define([
   "jquery",
@@ -51,23 +12,23 @@ define([
   "use strict";
 
   var parser = new Parser("upload");
-  parser.add_argument("showTitle"); //boolean): show/hide the h1 title (true)
-  parser.add_argument("url"); //string): If not used with a form, this option must provide the URL to submit to or baseUrl with relativePath needs to be used (null)
-  parser.add_argument("baseUrl"); //string): to be used in conjunction with relativePath to generate submission urls based on related items (null)
-  parser.add_argument("relativePath"); //string): again, to be used with baseUrl to create upload url (null)
-  parser.add_argument("initialFolder"); //string): UID of initial folder related items widget should have selected (null)
-  parser.add_argument("currentPath"); //string): Current path related items is starting with (null)
-  parser.add_argument("clickable"); //boolean): If you can click on container to also upload (false)
-  parser.add_argument("className"); //string): value for class attribute in the form element ('upload')
-  parser.add_argument("paramName"); //string): value for name attribute in the file input element ('file')
-  parser.add_argument("ajaxUpload"); //boolean): true or false for letting the widget upload the files via ajax. If false the form will act like a normal form. (true)
-  parser.add_argument("wrap"); //boolean): true or false for wrapping this element using the value of wrapperTemplate. (false)
-  parser.add_argument("wrapperTemplate"); //string): HTML template for wrapping around with this element. ('<div class="upload-container"/>')
-  parser.add_argument("resultTemplate"); //string): HTML template for the element that will contain file information. ('<div class="dz-notice"><p>Drop files here...</p></div><div class="upload-previews"/>')
-  parser.add_argument("autoCleanResults"); //boolean): condition value for the file preview in div element to fadeout after file upload is completed. (true)
-  parser.add_argument("previewsContainer"); //selector): JavaScript selector for file preview in div element. (.upload-previews)
-  parser.add_argument("container"); //selector): JavaScript selector for where to put upload stuff into in case of form. If not provided it will be place before the first submit button. ('')
-  parser.add_argument("relatedItems"); //object): Related items pattern options. Will only use only if relativePath is used to use correct upload destination ({ attributes: ["UID", "Title", "Description", "getURL", "Type", "path", "ModificationDate"], batchSize: 20, basePath: "/", vocabularyUrl: null, width: 500, maximumSelectionSize: 1, placeholder: "Search for item on site..." })
+  parser.add_argument("ajaxUpload");        //boolean: true or false for letting the widget upload the files via ajax. If false the form will act like a normal form. (true)
+  parser.add_argument("autoCleanResults");  //boolean: condition value for the file preview in div element to fadeout after file upload is completed. (true)
+  parser.add_argument("baseUrl");           //string: to be used in conjunction with relativePath to generate submission urls based on related items (null)
+  parser.add_argument("className");         //string: value for class attribute in the form element ('upload')
+  parser.add_argument("clickable");         //boolean: If you can click on container to also upload (false)
+  parser.add_argument("container");         //selector: JavaScript selector for where to put upload stuff into in case of form. If not provided it will be place before the first submit button. ('')
+  parser.add_argument("currentPath");       //string: Current path related items is starting with (null)
+  parser.add_argument("initialFolder");     //string: UID of initial folder related items widget should have selected (null)
+  parser.add_argument("paramName");         //string: value for name attribute in the file input element ('file')
+  parser.add_argument("previewsContainer"); //selector: JavaScript selector for file preview in div element. (.upload-previews)
+  parser.add_argument("relatedItems");      //object: Related items pattern options. Will only use only if relativePath is used to use correct upload destination ({ attributes: ["UID", "Title", "Description", "getURL", "Type", "path", "ModificationDate"], batchSize: 20, basePath: "/", vocabularyUrl: null, width: 500, maximumSelectionSize: 1, placeholder: "Search for item on site..." })
+  parser.add_argument("relativePath");      //string: again, to be used with baseUrl to create upload url (null)
+  parser.add_argument("resultTemplate");    //string: HTML template for the element that will contain file information. ('<div class="dz-notice"><p>Drop files here...</p></div><div class="upload-previews"/>')
+  parser.add_argument("showTitle");         //boolean: show/hide the h1 title (true)
+  parser.add_argument("url");               //string: If not used with a form, this option must provide the URL to submit to or baseUrl with relativePath needs to be used (null)
+  parser.add_argument("wrap");              //boolean: true or false for wrapping this element using the value of wrapperTemplate. (false)
+  parser.add_argument("wrapperTemplate");   //string: HTML template for wrapping around with this element. ('<div class="upload-container"/>')
 
   /* we do not want this plugin to auto discover */
   Dropzone.autoDiscover = false;
@@ -84,54 +45,48 @@ define([
     name: 'upload',
     trigger: '.pat-upload',
     defaults: {
-      showTitle: true,
-      url: null, // XXX MUST provide url to submit to OR be in a form
-      className: 'upload',
-      wrap: false,
-      wrapperTemplate: '<div class="upload-wrapper"/>',
-      fileaddedClassName: 'dropping',
-      useTus: false,
-      container: '',
-      ajaxUpload: true,
-
-      paramName: 'file',
-      clickable: true,
       addRemoveLinks: false,
+      ajaxUpload: true,
       autoCleanResults: true,
-      previewsContainer: '.previews',
-      previewTemplate: null,
+      className: 'upload',
+      clickable: true,
+      container: '',
+      fileaddedClassName: 'dropping',
       maxFiles: null,
       maxFilesize: 99999999, // let's not have a max by default...
+      paramName: 'file',
+      previewTemplate: null,
+      previewsContainer: '.previews',
+      showTitle: true,
+      url: null,
+      useTus: false,
+      wrap: false,
+      wrapperTemplate: '<div class="upload-wrapper"/>',
 
       relatedItems: {
         // UID attribute is required here since we're working with related items
         attributes: ['UID', 'Title', 'Description', 'getURL', 'Type', 'path', 'ModificationDate'],
-        batchSize: 20,
         basePath: '/',
-        vocabularyUrl: null,
-        width: 500,
+        batchSize: 20,
         maximumSelectionSize: 1,
-        placeholder: _t('Search for item on site...')
+        placeholder: _t('Search for item on site...'),
+        vocabularyUrl: null,
+        width: 500
       }
     },
 
     //placeholder: 'Search for item on site...'
     init: function($el, opts) {
-      this.cfgs = parser.parse($el, opts, true);
-      if (_.isArray(this.cfgs)) {
-        this.cfgs = this.cfgs[0];
-      }
       this.$el = $el;
-      var template = UploadTemplate;
+      this.cfgs = _.extend(_.clone(this.defaults), parser.parse($el, opts, true)[0]);
 
       // values that will change current processing
       this.currentPath = this.cfgs.currentPath;
       this.numFiles = 0;
       this.currentFile = 0;
 
-      template = _.template(template, {_t: _t});
       this.$el.addClass(this.cfgs.className);
-      this.$el.append(template);
+      this.$el.append(_.template(UploadTemplate, {_t: _t}));
       this.$progress = $('.progress-bar-success', this.$el);
 
       if (!this.cfgs.showTitle) {
