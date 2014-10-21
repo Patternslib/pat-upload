@@ -44,10 +44,30 @@ define([
   "underscore",
   "dropzone",
   "pat-registry",
+  "pat-parser",
   "text!./templates/upload.xml",
   "text!./templates/preview.xml",
-], function($, _, Dropzone, registry, UploadTemplate, PreviewTemplate) {
-  'use strict';
+], function($, _, Dropzone, registry, Parser, UploadTemplate, PreviewTemplate) {
+  "use strict";
+
+  var parser = new Parser("upload");
+  parser.add_argument("showTitle"); //boolean): show/hide the h1 title (true)
+  parser.add_argument("url"); //string): If not used with a form, this option must provide the URL to submit to or baseUrl with relativePath needs to be used (null)
+  parser.add_argument("baseUrl"); //string): to be used in conjunction with relativePath to generate submission urls based on related items (null)
+  parser.add_argument("relativePath"); //string): again, to be used with baseUrl to create upload url (null)
+  parser.add_argument("initialFolder"); //string): UID of initial folder related items widget should have selected (null)
+  parser.add_argument("currentPath"); //string): Current path related items is starting with (null)
+  parser.add_argument("clickable"); //boolean): If you can click on container to also upload (false)
+  parser.add_argument("className"); //string): value for class attribute in the form element ('upload')
+  parser.add_argument("paramName"); //string): value for name attribute in the file input element ('file')
+  parser.add_argument("ajaxUpload"); //boolean): true or false for letting the widget upload the files via ajax. If false the form will act like a normal form. (true)
+  parser.add_argument("wrap"); //boolean): true or false for wrapping this element using the value of wrapperTemplate. (false)
+  parser.add_argument("wrapperTemplate"); //string): HTML template for wrapping around with this element. ('<div class="upload-container"/>')
+  parser.add_argument("resultTemplate"); //string): HTML template for the element that will contain file information. ('<div class="dz-notice"><p>Drop files here...</p></div><div class="upload-previews"/>')
+  parser.add_argument("autoCleanResults"); //boolean): condition value for the file preview in div element to fadeout after file upload is completed. (true)
+  parser.add_argument("previewsContainer"); //selector): JavaScript selector for file preview in div element. (.upload-previews)
+  parser.add_argument("container"); //selector): JavaScript selector for where to put upload stuff into in case of form. If not provided it will be place before the first submit button. ('')
+  parser.add_argument("relatedItems"); //object): Related items pattern options. Will only use only if relativePath is used to use correct upload destination ({ attributes: ["UID", "Title", "Description", "getURL", "Type", "path", "ModificationDate"], batchSize: 20, basePath: "/", vocabularyUrl: null, width: 500, maximumSelectionSize: 1, placeholder: "Search for item on site..." })
 
   /* we do not want this plugin to auto discover */
   Dropzone.autoDiscover = false;
@@ -96,26 +116,29 @@ define([
     },
 
     //placeholder: 'Search for item on site...'
-    init: function() {
-      var self = this,
-          template = UploadTemplate;
+    init: function($el, opts) {
+      this.cfgs = parser.parse($el, opts, true);
+      if (_.isArray(this.cfgs)) {
+        this.cfgs = this.cfgs[0];
+      }
+      this.$el = $el;
+      var template = UploadTemplate;
 
       // values that will change current processing
-      self.currentPath = self.options.currentPath;
-      self.numFiles = 0;
-      self.currentFile = 0;
+      this.currentPath = this.cfgs.currentPath;
+      this.numFiles = 0;
+      this.currentFile = 0;
 
       template = _.template(template, {_t: _t});
-      self.$el.addClass(self.options.className);
-      self.$el.append(template);
+      this.$el.addClass(this.cfgs.className);
+      this.$el.append(template);
+      this.$progress = $('.progress-bar-success', this.$el);
 
-      self.$progress = $('.progress-bar-success', self.$el);
-
-      if (!self.options.showTitle) {
-        self.$el.find('h2.title').hide();
+      if (!this.cfgs.showTitle) {
+        this.$el.find('h2.title').hide();
       }
 
-      if (!self.options.ajaxUpload) {
+      if (!this.cfgs.ajaxUpload) {
         // no ajax upload, drop the fallback
         $('.fallback', this.$el).remove();
         if (this.$el.hasClass('.upload-container')) {
@@ -125,27 +148,27 @@ define([
         }
       }
 
-      if (self.options.wrap) {
-        self.$el.wrap(self.options.wrapperTemplate);
-        self.$el = self.$el.parent();
+      if (this.cfgs.wrap) {
+        this.$el.wrap(this.cfgs.wrapperTemplate);
+        this.$el = this.$el.parent();
       }
 
-      if (self.options.baseUrl && self.options.relativePath){
+      if (this.cfgs.baseUrl && this.cfgs.relativePath){
         // only use related items if we can generate paths based urls
-        self.$pathInput = $('input[name="location"]', self.$el);
-        self.relatedItems = self.setupRelatedItems(self.$pathInput);
+        this.$pathInput = $('input[name="location"]', this.$el);
+        this.relatedItems = this.setupRelatedItems(this.$pathInput);
       } else {
-        $('input[name="location"]', self.$el).parent().remove();
-        self.relatedItems = null;
+        $('input[name="location"]', this.$el).parent().remove();
+        this.relatedItems = null;
       }
 
-      self.$dropzone = $('.upload-area', self.$el);
+      this.$dropzone = $('.upload-area', this.$el);
 
-      $('button.browse', self.$el).click(function(e) {
+      $('button.browse', this.$el).click(function(e) {
         e.preventDefault();
         e.stopPropagation();
         // we trigger the dropzone dialog!
-        self.dropzone.hiddenFileInput.click();
+        this.dropzone.hiddenFileInput.click();
       });
 
       var dzoneOptions = this.getDzoneOptions();
@@ -156,7 +179,7 @@ define([
         // that if you break it w/ some weird or missing option
         // you can get a proper log of it
         //
-        self.dropzone = new Dropzone(self.$dropzone[0], dzoneOptions);
+        this.dropzone = new Dropzone(this.$dropzone[0], dzoneOptions);
       } catch (e) {
         if (window.DEBUG) {
           // log it!
@@ -165,62 +188,60 @@ define([
         throw e;
       }
 
-      self.dropzone.on('addedfile', function(file) {
-        self.showControls();
-      });
+      this.dropzone.on('addedfile', $.proxy(function(file) {
+        this.showControls();
+      }, this));
 
-      self.dropzone.on('removedfile', function() {
-        if (self.dropzone.files.length < 1) {
-          self.hideControls();
+      this.dropzone.on('removedfile', $.proxy(function() {
+        if (this.dropzone.files.length < 1) {
+          this.hideControls();
         }
-      });
+      }, this));
 
-      if (self.options.autoCleanResults) {
-        self.dropzone.on('complete', function(file) {
+      if (this.cfgs.autoCleanResults) {
+        this.dropzone.on('complete', $.proxy(function(file) {
           setTimeout(function() {
             $(file.previewElement).fadeOut();
           }, 3000);
-        });
+        }, this));
       }
 
-      self.dropzone.on('complete', function(file) {
-        if (self.dropzone.files.length < 1) {
-          self.hideControls();
+      this.dropzone.on('complete', $.proxy(function(file) {
+        if (this.dropzone.files.length < 1) {
+          this.hideControls();
         }
-      });
+      }, this));
 
-      self.dropzone.on('totaluploadprogress', function(pct) {
+      this.dropzone.on('totaluploadprogress', $.proxy(function(pct) {
         // need to caclulate total pct here in reality since we're manually
         // processing each file one at a time.
-        pct = ((((self.currentFile - 1) * 100) + pct) / (self.numFiles * 100)) * 100;
-        self.$progress.attr('aria-valuenow', pct).css('width', pct + '%');
-      });
+        pct = ((((this.currentFile - 1) * 100) + pct) / (this.numFiles * 100)) * 100;
+        this.$progress.attr('aria-valuenow', pct).css('width', pct + '%');
+      }, this));
 
-      $('.upload-all', self.$el).click(function (e) {
+      $('.upload-all', this.$el).click($.proxy(function (e) {
         e.preventDefault();
         e.stopPropagation();
-        self.processUpload({
+        this.processUpload({
           finished: function() {
-            self.$progress.attr('aria-valuenow', 0).css('width', '0%');
-          }
+            this.$progress.attr('aria-valuenow', 0).css('width', '0%');
+          }.bind(this)
         });
-      });
+      }, this));
     },
 
     showControls: function() {
-      var self = this;
-      $('.controls', self.$el).fadeIn('slow');
+      $('.controls', this.$el).fadeIn('slow');
     },
 
     hideControls: function() {
-      var self = this;
-      $('.controls', self.$el).fadeOut('slow');
+      $('.controls', this.$el).fadeOut('slow');
     },
 
     pathJoin: function() {
       var parts = [];
       _.each(arguments, function(part) {
-        if (!part){
+        if (!part) {
           return;
         }
         if (part[0] === '/'){
@@ -235,18 +256,16 @@ define([
     },
 
     getUrl: function() {
-
-      var self = this;
-      var url = self.options.url;
+      var url = this.cfgs.url;
       if (!url) {
-        if (self.options.baseUrl && self.options.relativePath){
-          url = self.options.baseUrl;
+        if (this.cfgs.baseUrl && this.cfgs.relativePath){
+          url = this.cfgs.baseUrl;
           if (url[url.length - 1] !== '/'){
             url = url + '/';
           }
-          url = url + self.pathJoin(self.currentPath, self.options.relativePath);
+          url = url + this.pathJoin(this.currentPath, this.cfgs.relativePath);
         } else {
-          var $form = self.$el.parents('form');
+          var $form = this.$el.parents('form');
           if ($form.length > 0){
             url = $form.attr('action');
           } else {
@@ -258,19 +277,17 @@ define([
     },
 
     getDzoneOptions: function() {
-      var self = this;
-
       // clickable option
-      if (typeof(self.options.clickable) === 'string') {
-        if (self.options.clickable === 'true') {
-          self.options.clickable = true;
+      if (typeof(this.cfgs.clickable) === 'string') {
+        if (this.cfgs.clickable === 'true') {
+          this.cfgs.clickable = true;
         } else {
-          self.options.clickable = false;
+          this.cfgs.clickable = false;
         }
       }
 
-      var options = $.extend({}, self.options);
-      options.url = self.getUrl();
+      var options = $.extend({}, this.cfgs);
+      options.url = this.getUrl();
       // XXX force to only upload one at a time,
       // right now we don't support multiple for backends
       options.uploadMultiple = false;
@@ -282,12 +299,12 @@ define([
       delete options.fileaddedClassName;
       delete options.useTus;
 
-      if (self.options.previewsContainer) {
+      if (this.cfgs.previewsContainer) {
         /*
          * if they have a select but it's not an id, let's make an id selector
          * so we can target the correct container. dropzone is weird here...
          */
-        var $preview = self.$el.find(self.options.previewsContainer);
+        var $preview = this.$el.find(this.cfgs.previewsContainer);
         if ($preview.length > 0) {
           options.previewsContainer = $preview[0];
         }
@@ -310,8 +327,8 @@ define([
 
       var self = this,
           processing = false,
-          useTus = self.options.useTus,
-          fileaddedClassName = self.options.fileaddedClassName,
+          useTus = this.cfgs.useTus,
+          fileaddedClassName = this.cfgs.fileaddedClassName,
           finished = options.finished;
 
       self.numFiles = self.dropzone.files.length;
@@ -397,21 +414,20 @@ define([
     },
 
     setupRelatedItems: function($input) {
-      var self = this;
-      var options = self.options.relatedItems;
-      if (self.options.initialFolder){
-        $input.attr('value', self.options.initialFolder);
+      var options = this.cfgs.relatedItems;
+      if (this.cfgs.initialFolder){
+        $input.attr('value', this.cfgs.initialFolder);
       }
       var ri = new RelatedItems($input, options);
-      ri.$el.on('change', function() {
+      ri.$el.on('change', $.proxy(function() {
         var result = $(this).select2('data');
         if (result.length > 0){
-          self.currentPath = result[0].path;
+          this.currentPath = result[0].path;
         } else {
-          self.currentPath = null;
+          this.currentPath = null;
         }
-        self.options.url = self.dropzone.options.url = self.getUrl();
-      });
+        this.cfgs.url = this.dropzone.options.url = this.getUrl();
+      }, this));
       return ri;
     }
 
