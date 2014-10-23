@@ -86,7 +86,7 @@ define([
       this.currentFile = 0;
 
       this.$el.addClass(this.cfgs.className);
-      this.$el.append(_.template(UploadTemplate, {_t: _t}));
+      this.$el.append(_.template(UploadTemplate)({_t: _t}));
       this.$progress = $('.progress-bar-success', this.$el);
 
       if (!this.cfgs.showTitle) {

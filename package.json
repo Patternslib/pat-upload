@@ -1,7 +1,7 @@
 {
   "name": "pat-upload",
   "version": "0.0.1",
-  "description": "A pattern for drag & drop file upload via fine-uploader",
+  "description": "A pattern for drag & drop file upload",
   "author": {
     "name": "Jan Carel Brand",
     "email": "brand@syslab.com"
