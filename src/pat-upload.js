@@ -5,8 +5,8 @@ define([
   "dropzone",
   "pat-registry",
   "pat-parser",
-  "text!./templates/upload.xml",
-  "text!./templates/preview.xml",
+  "text!upload",
+  "text!preview",
 ], function($, _, Dropzone, registry, Parser, UploadTemplate, PreviewTemplate) {
     "use strict";
 
