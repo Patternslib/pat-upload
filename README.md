@@ -1,9 +1,10 @@
-pat-upload
-==========
+#pat-upload
 
 A pattern that creates a drop area for uploading multiple files.
 
 Based on [fineuploader](http://fineuploader.com).
+
+##demo
 
 To view a demo of how this pattern works, clone the repository:
 
