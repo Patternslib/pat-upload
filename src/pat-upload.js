@@ -16,7 +16,7 @@ define([
     parser.add_argument("baseUrl");           //string: to be used in conjunction with relativePath to generate submission urls based on related items (null)
     parser.add_argument("className");         //string: value for class attribute in the form element ('upload')
     parser.add_argument("clickable");         //boolean: If you can click on container to also upload (false)
-    parser.add_argument("container");         //selector: JavaScript selector for where to put upload stuff into in case of form. If not provided it will be place before the first submit button. ('')
+    parser.add_argument("container");         //selector: JavaScript selector for where to put upload stuff into in case of form. If not provided it will be placed before the first submit button. ('')
     parser.add_argument("currentPath");       //string: Current path related items is starting with (null)
     parser.add_argument("initialFolder");     //string: UID of initial folder related items widget should have selected (null)
     parser.add_argument("paramName");         //string: value for name attribute in the file input element ('file')
@@ -132,6 +132,7 @@ define([
                 }
                 throw e;
             }
+            this.hideControls();
 
             $('button.browse', this.$el).click(function(e) {
                 e.preventDefault();
