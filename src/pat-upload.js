@@ -26,6 +26,7 @@ define([
     parser.add_argument("relativePath");      //string: again, to be used with baseUrl to create upload url (null)
     parser.add_argument("resultTemplate");    //string: HTML template for the element that will contain file information. ('<div class="dz-notice"><p>Drop files here...</p></div><div class="upload-previews"/>')
     parser.add_argument("showTitle");         //boolean: show/hide the h1 title (true)
+    parser.add_argument("trigger");           //string: What triggers the upload.  'button' expects user to click upload button, 'auto' starts uploading automatically after the user drags something, and always hides the upload button. ('button')
     parser.add_argument("url");               //string: If not used with a form, this option must provide the URL to submit to or baseUrl with relativePath needs to be used (null)
     parser.add_argument("wrap");              //boolean: true or false for wrapping this element using the value of wrapperTemplate. (false)
     parser.add_argument("wrapperTemplate");   //string: HTML template for wrapping around with this element. ('<div class="upload-container"/>')
@@ -59,6 +60,7 @@ define([
             previewTemplate: null,
             previewsContainer: '.previews',
             showTitle: true,
+            trigger: 'button',
             url: null,
             useTus: false,
             wrap: false,
@@ -144,7 +146,14 @@ define([
             });
 
             this.dropzone.on('addedfile', $.proxy(function(file) {
-                this.showControls();
+                if (this.cfgs.trigger === 'button')
+                    this.showControls();
+                if (this.cfgs.trigger === 'auto')
+                    this.processUpload({
+                        finished: function() {
+                            this.$progress.attr('aria-valuenow', 0).css('width', '0%');
+                        }.bind(this)
+                    });
             }, this));
 
             this.dropzone.on('removedfile', $.proxy(function() {

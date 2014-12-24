@@ -24,6 +24,7 @@ relatedItems | _JS object_ | `{ attributes: ["UID", "Title", "Description", "get
 relativePath | _path string_ | _null_ | string | Again, to be used with baseUrl to create upload url.
 resultTemplate | _html string_ | `<div class="dz-notice"><p>Drop files here...</p></div><div class="upload-previews"/>` | string | HTML template for the element that will contain file information. 
 showTitle | `true`, `false` | `true` | boolean | Show/hide the h1 title.
+trigger | _trigger name_ | `button` | string | What triggers the upload.  'button' expects user to click upload button, 'auto' starts uploading automatically after the user drags something, and always hides the upload button.
 url | _url string_ | _null_ | string | If not used with a form, this option must provide the URL to submit to or baseUrl with relativePath needs to be used.
 wrap | `true`, `false` | `false` | boolean | True or false for wrapping this element using the value of wrapperTemplate.
 wrapperTemplate | _html string_ | `<div class="upload-container"/>`| string | HTML template for wrapping around with this element.
