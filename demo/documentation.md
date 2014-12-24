@@ -17,7 +17,7 @@ clickable | `true`, `false` | `false` | boolean | If you can click on container 
 container | | `''` | selector | JavaScript selector for where to put upload stuff into in case of form. If not provided it will be place before the first submit button.
 currentPath | _path string_ | _null_ | string | Current path related items is starting with.
 initialFolder | _UID string_ | _null_ | string | UID of initial folder related items widget should have selected.
-label | _label text_ | `Drop files here...` | string | Text to show instead of the default
+label | *string* | `Drop files here…` | string | Label text to show on the upload zone.
 paramName | _name attr_ | `file` | string | Value for name attribute in the file input element.
 previewsContainer | | `.previews` | selector | JavaScript selector for file preview in div element.
 relatedItems | _JS object_ | `{ attributes: ["UID", "Title", "Description", "getURL", "Type", "path", "ModificationDate"], batchSize: 20, basePath: "/", vocabularyUrl: null, width: 500, maximumSelectionSize: 1, placeholder: "Search for item on site..." }` | object | Related items pattern options. Will only use only if relativePath is used to use correct upload destination.
