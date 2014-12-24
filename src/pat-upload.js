@@ -19,6 +19,7 @@ define([
     parser.add_argument("container");         //selector: JavaScript selector for where to put upload stuff into in case of form. If not provided it will be placed before the first submit button. ('')
     parser.add_argument("currentPath");       //string: Current path related items is starting with (null)
     parser.add_argument("initialFolder");     //string: UID of initial folder related items widget should have selected (null)
+    parser.add_argument("label");             //string: Text to show instead of the default ('Drop files here...')
     parser.add_argument("paramName");         //string: value for name attribute in the file input element ('file')
     parser.add_argument("previewsContainer"); //selector: JavaScript selector for file preview in div element. (.upload-previews)
     parser.add_argument("relatedItems");      //object: Related items pattern options. Will only use only if relativePath is used to use correct upload destination ({ attributes: ["UID", "Title", "Description", "getURL", "Type", "path", "ModificationDate"], batchSize: 20, basePath: "/", vocabularyUrl: null, width: 500, maximumSelectionSize: 1, placeholder: "Search for item on site..." })
@@ -51,6 +52,7 @@ define([
             clickable: true,
             container: '',
             fileaddedClassName: 'dropping',
+            label: "Drop files here&hellip;",
             maxFiles: null,
             maxFilesize: 99999999, // let's not have a max by default...
             paramName: 'file',
@@ -84,7 +86,7 @@ define([
             this.currentFile = 0;
 
             this.$el.addClass(this.cfgs.className);
-            this.$el.append(_.template(UploadTemplate)({_t: _t}));
+            this.$el.append(_.template(UploadTemplate)({_t: _t, label: _t(this.cfgs.label)}));
             this.$progress = $('.progress-bar-success', this.$el);
 
             if (!this.cfgs.showTitle) {
