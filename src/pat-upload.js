@@ -11,25 +11,25 @@ define([
     "use strict";
 
     var parser = new Parser("upload");
-    parser.add_argument("ajaxUpload");        //boolean: true or false for letting the widget upload the files via ajax. If false the form will act like a normal form. (true)
-    parser.add_argument("autoCleanResults");  //boolean: condition value for the file preview in div element to fadeout after file upload is completed. (true)
-    parser.add_argument("baseUrl");           //string: to be used in conjunction with relativePath to generate submission urls based on related items (null)
+    parser.add_argument("ajax-upload");       //boolean: true or false for letting the widget upload the files via ajax. If false the form will act like a normal form. (true)
+    parser.add_argument("post-upload");       //boolean: condition value for the file preview in div element to fadeout after file upload is completed. (true)
+    parser.add_argument("base-url");          //string: to be used in conjunction with relative-path to generate submission urls based on related items (null)
     parser.add_argument("className");         //string: value for class attribute in the form element ('upload')
     parser.add_argument("clickable");         //boolean: If you can click on container to also upload (false)
     parser.add_argument("container");         //selector: JavaScript selector for where to put upload stuff into in case of form. If not provided it will be placed before the first submit button. ('')
-    parser.add_argument("currentPath");       //string: Current path related items is starting with (null)
-    parser.add_argument("initialFolder");     //string: UID of initial folder related items widget should have selected (null)
+    parser.add_argument("current-path");      //string: Current path related items is starting with (null)
+    parser.add_argument("initial-folder");    //string: UID of initial folder related items widget should have selected (null)
     parser.add_argument("label");             //string: Text to show instead of the default ('Drop files here…')
-    parser.add_argument("paramName");         //string: value for name attribute in the file input element ('file')
-    parser.add_argument("previewsContainer"); //selector: JavaScript selector for file preview in div element. (.upload-previews)
-    parser.add_argument("relatedItems");      //object: Related items pattern options. Will only use only if relativePath is used to use correct upload destination ({ attributes: ["UID", "Title", "Description", "getURL", "Type", "path", "ModificationDate"], batchSize: 20, basePath: "/", vocabularyUrl: null, width: 500, maximumSelectionSize: 1, placeholder: "Search for item on site..." })
-    parser.add_argument("relativePath");      //string: again, to be used with baseUrl to create upload url (null)
-    parser.add_argument("resultTemplate");    //string: HTML template for the element that will contain file information. ('<div class="dz-notice"><p>Drop files here...</p></div><div class="upload-previews"/>')
-    parser.add_argument("showTitle");         //boolean: show/hide the h1 title (true)
+    parser.add_argument("name");              //string: value for name attribute in the file input element ('file')
+    parser.add_argument("previews-container");//selector: JavaScript selector for file preview in div element. (.upload-previews)
+    parser.add_argument("related-items");     //object: Related items pattern options. Will only use only if relative-path is used to use correct upload destination ({ attributes: ["UID", "Title", "Description", "getURL", "Type", "path", "ModificationDate"], batchSize: 20, basePath: "/", vocabularyUrl: null, width: 500, maximumSelectionSize: 1, placeholder: "Search for item on site..." })
+    parser.add_argument("relative-path");     //string: again, to be used with base-url to create upload url (null)
+    parser.add_argument("result-template");   //string: HTML template for the element that will contain file information. ('<div class="dz-notice"><p>Drop files here...</p></div><div class="upload-previews"/>')
+    parser.add_argument("title");             //boolean: show/hide the h1 title (true)
     parser.add_argument("trigger");           //string: What triggers the upload.  'button' expects user to click upload button, 'auto' starts uploading automatically after the user drags something, and always hides the upload button. ('button')
-    parser.add_argument("url");               //string: If not used with a form, this option must provide the URL to submit to or baseUrl with relativePath needs to be used (null)
+    parser.add_argument("url");               //string: If not used with a form, this option must provide the URL to submit to or base-url with relative-path needs to be used (null)
     parser.add_argument("wrap");              //boolean: true or false for wrapping this element using the value of wrapperTemplate. (false)
-    parser.add_argument("wrapperTemplate");   //string: HTML template for wrapping around with this element. ('<div class="upload-container"/>')
+    parser.add_argument("wrapper-template");   //string: HTML template for wrapping around with this element. ('<div class="upload-container"/>')
 
     /* we do not want this plugin to auto discover */
     Dropzone.autoDiscover = false;
@@ -48,7 +48,7 @@ define([
         defaults: {
             addRemoveLinks: false,
             ajaxUpload: true,
-            autoCleanResults: true,
+            postUpload: true,
             className: 'upload',
             clickable: true,
             container: '',
@@ -56,10 +56,10 @@ define([
             label: "Drop files here&hellip;",
             maxFiles: null,
             maxFilesize: 99999999, // let's not have a max by default...
-            paramName: 'file',
+            name: 'file',
             previewTemplate: null,
             previewsContainer: '.previews',
-            showTitle: true,
+            title: true,
             trigger: 'button',
             url: null,
             useTus: false,
@@ -91,7 +91,7 @@ define([
             this.$el.append(_.template(UploadTemplate)({_t: _t, label: _t(this.cfgs.label)}));
             this.$progress = $('.progress-bar-success', this.$el);
 
-            if (!this.cfgs.showTitle) {
+            if (!this.cfgs.title) {
                 this.$el.find('h2.title').hide();
             }
 
@@ -162,7 +162,7 @@ define([
                 }
             }, this));
 
-            if (this.cfgs.autoCleanResults) {
+            if (this.cfgs.postUpload) {
                 this.dropzone.on('complete', $.proxy(function(file) {
                     setTimeout(function() {
                         $(file.previewElement).fadeOut();
@@ -258,7 +258,7 @@ define([
             delete options.wrap;
             delete options.wrapperTemplate;
             delete options.resultTemplate;
-            delete options.autoCleanResults;
+            delete options.postUpload;
             delete options.fileaddedClassName;
             delete options.useTus;
 
