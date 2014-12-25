@@ -25,7 +25,7 @@
             </div>
             <div class="controls">
                 <div class="path">
-                    <label>Upload to...</label>
+                    <label>Upload to…</label>
                     <p class="form-help">If nothing selected files we be added to current context.</p>
                     <input type="text" name="location" />
                 </div>
