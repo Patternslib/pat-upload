@@ -3,68 +3,50 @@ define([
   "jquery",
   "underscore",
   "dropzone",
+  "mockup-patterns-base",
   "pat-registry",
   "pat-parser",
+  "i18n",
   "text!upload",
   "text!preview",
-], function($, _, Dropzone, registry, Parser, UploadTemplate, PreviewTemplate) {
+], function($, _, Dropzone, Base, registry, Parser, _t, UploadTemplate, PreviewTemplate) {
     "use strict";
 
     var parser = new Parser("upload");
-    parser.add_argument("ajax-upload");       //boolean: true or false for letting the widget upload the files via ajax. If false the form will act like a normal form. (true)
-    parser.add_argument("post-upload");       //boolean: condition value for the file preview in div element to fadeout after file upload is completed. (true)
-    parser.add_argument("base-url");          //string: to be used in conjunction with relative-path to generate submission urls based on related items (null)
-    parser.add_argument("className");         //string: value for class attribute in the form element ('upload')
-    parser.add_argument("clickable");         //boolean: If you can click on container to also upload (false)
-    parser.add_argument("container");         //selector: JavaScript selector for where to put upload stuff into in case of form. If not provided it will be placed before the first submit button. ('')
-    parser.add_argument("current-path");      //string: Current path related items is starting with (null)
-    parser.add_argument("initial-folder");    //string: UID of initial folder related items widget should have selected (null)
-    parser.add_argument("label");             //string: Text to show instead of the default ('Drop files here…')
-    parser.add_argument("name");              //string: value for name attribute in the file input element ('file')
-    parser.add_argument("previews-container");//selector: JavaScript selector for file preview in div element. (.upload-previews)
-    parser.add_argument("related-items");     //object: Related items pattern options. Will only use only if relative-path is used to use correct upload destination ({ attributes: ["UID", "Title", "Description", "getURL", "Type", "path", "ModificationDate"], batchSize: 20, basePath: "/", vocabularyUrl: null, width: 500, maximumSelectionSize: 1, placeholder: "Search for item on site..." })
-    parser.add_argument("relative-path");     //string: again, to be used with base-url to create upload url (null)
-    parser.add_argument("result-template");   //string: HTML template for the element that will contain file information. ('<div class="dz-notice"><p>Drop files here...</p></div><div class="upload-previews"/>')
-    parser.add_argument("title");             //boolean: show/hide the h1 title (true)
-    parser.add_argument("trigger");           //string: What triggers the upload.  'button' expects user to click upload button, 'auto' starts uploading automatically after the user drags something, and always hides the upload button. ('button')
-    parser.add_argument("url");               //string: If not used with a form, this option must provide the URL to submit to or base-url with relative-path needs to be used (null)
-    parser.add_argument("wrap");              //boolean: true or false for wrapping this element using the value of wrapperTemplate. (false)
-    parser.add_argument("wrapper-template");   //string: HTML template for wrapping around with this element. ('<div class="upload-container"/>')
+    parser.add_argument("ajax-upload", true);           //boolean: true or false for letting the widget upload the files via ajax. If false the form will act like a normal form. (true)
+    parser.add_argument("post-upload", true);           //boolean: condition value for the file preview in div element to fadeout after file upload is completed. (true)
+    parser.add_argument("base-url");                    //string: to be used in conjunction with relative-path to generate submission urls based on related items (null)
+    parser.add_argument("className", "upload");         //string: value for class attribute in the form element ('upload')
+    parser.add_argument("clickable", "true");           //boolean: If you can click on container to also upload (true)
+    parser.add_argument("container", "");               //selector: JavaScript selector for where to put upload stuff into in case of form. If not provided it will be placed before the first submit button. ('')
+    parser.add_argument("current-path");                //string: Current path related items is starting with (null)
+    parser.add_argument("initial-folder");              //string: UID of initial folder related items widget should have selected (null)
+    parser.add_argument("label", "Drop files here…");   //string: Text to show instead of the default ('Drop files here…')
+    parser.add_argument("name", "file");                //string: value for name attribute in the file input element ('file')
+    parser.add_argument("previews-container", ".previews");  //selector: JavaScript selector for file preview in div element. (.previews)
+    parser.add_argument("related-items");               //object: Related items pattern options. Will only use only if relative-path is used to use correct upload destination ({ attributes: ["UID", "Title", "Description", "getURL", "Type", "path", "ModificationDate"], batchSize: 20, basePath: "/", vocabularyUrl: null, width: 500, maximumSelectionSize: 1, placeholder: "Search for item on site..." })
+    parser.add_argument("relative-path");               //string: again, to be used with base-url to create upload url (null)
+    parser.add_argument("result-template");             //string: HTML template for the element that will contain file information. ('<div class="dz-notice"><p>Drop files here...</p></div><div class="upload-previews"/>')
+    parser.add_argument("title", true);                 //boolean: show/hide the h1 title (true)
+    parser.add_argument("trigger", "button");           //string: What triggers the upload.  'button' expects user to click upload button, 'auto' starts uploading automatically after the user drags something, and always hides the upload button. ('button')
+    parser.add_argument("url");                         //string: If not used with a form, this option must provide the URL to submit to or base-url with relative-path needs to be used (null)
+    parser.add_argument("wrap", false);                 //boolean: true or false for wrapping this element using the value of wrapperTemplate. (false)
+    parser.add_argument("wrapper-template", '<div class="upload-wrapper"/>'); //string: HTML template for wrapping around with this element. ('<div class="upload-container"/>')
 
     /* we do not want this plugin to auto discover */
     Dropzone.autoDiscover = false;
 
-    // i18n.loadCatalog('widgets');
-    // var _t = i18n.MessageFactory('widgets');
-    var _t = function (str) {
-        // XXX: Still need to sort out i18n. Will have to check whether we can
-        // rely on mockup-i18n.
-        return str;
-    };
-
-    var upload = {
+    return Base.extend({
         name: 'upload',
         trigger: '.pat-upload',
+        parser: 'patternslib',
         defaults: {
             addRemoveLinks: false,
-            ajaxUpload: true,
-            postUpload: true,
-            className: 'upload',
-            clickable: true,
-            container: '',
             fileaddedClassName: 'dropping',
-            label: "Drop files here&hellip;",
             maxFiles: null,
             maxFilesize: 99999999, // let's not have a max by default...
-            name: 'file',
             previewTemplate: null,
-            previewsContainer: '.previews',
-            title: true,
-            trigger: 'button',
-            url: null,
             useTus: false,
-            wrap: false,
-            wrapperTemplate: '<div class="upload-wrapper"/>',
             relatedItems: {
                 // UID attribute is required here since we're working with related items
                 attributes: ['UID', 'Title', 'Description', 'getURL', 'Type', 'path', 'ModificationDate'],
@@ -79,7 +61,6 @@ define([
 
         //placeholder: 'Search for item on site...'
         init: function($el, opts) {
-            this.$el = $el;
             this.cfgs = _.extend(_.clone(this.defaults), parser.parse($el, opts, true)[0]);
 
             // values that will change current processing
@@ -143,9 +124,9 @@ define([
                 e.stopPropagation();
                 // we trigger the dropzone dialog!
                 this.dropzone.hiddenFileInput.click();
-            });
+            }.bind(this));
 
-            this.dropzone.on('addedfile', $.proxy(function(file) {
+            this.dropzone.on('addedfile', function(file) {
                 if (this.cfgs.trigger === 'button')
                     this.showControls();
                 if (this.cfgs.trigger === 'auto')
@@ -154,20 +135,20 @@ define([
                             this.$progress.attr('aria-valuenow', 0).css('width', '0%');
                         }.bind(this)
                     });
-            }, this));
+            }.bind(this));
 
-            this.dropzone.on('removedfile', $.proxy(function() {
+            this.dropzone.on('removedfile', function() {
                 if (this.dropzone.files.length < 1) {
                     this.hideControls();
                 }
-            }, this));
+            }.bind(this));
 
             if (this.cfgs.postUpload) {
-                this.dropzone.on('complete', $.proxy(function(file) {
+                this.dropzone.on('complete', function(file) {
                     setTimeout(function() {
                         $(file.previewElement).fadeOut();
                     }, 3000);
-                }, this));
+                }.bind(this));
             }
 
             this.dropzone.on('complete', $.proxy(function(file) {
@@ -206,13 +187,13 @@ define([
             var parts = [];
             _.each(arguments, function(part) {
                 if (!part) {
-                return;
+                    return;
                 }
                 if (part[0] === '/'){
-                part = part.substring(1);
+                    part = part.substring(1);
                 }
                 if (part[part.length - 1] === '/'){
-                part = part.substring(0, part.length - 1);
+                    part = part.substring(0, part.length - 1);
                 }
                 parts.push(part);
             });
@@ -220,21 +201,22 @@ define([
         },
 
         getUrl: function() {
+            var $form;
             var url = this.cfgs.url;
             if (!url) {
-                if (this.cfgs.baseUrl && this.cfgs.relativePath){
-                url = this.cfgs.baseUrl;
-                if (url[url.length - 1] !== '/'){
-                    url = url + '/';
-                }
-                url = url + this.pathJoin(this.currentPath, this.cfgs.relativePath);
+                if (this.cfgs.baseUrl && this.cfgs.relativePath) {
+                    url = this.cfgs.baseUrl;
+                    if (url[url.length - 1] !== '/'){
+                        url = url + '/';
+                    }
+                    url = url + this.pathJoin(this.currentPath, this.cfgs.relativePath);
                 } else {
-                var $form = this.$el.parents('form');
-                if ($form.length > 0){
-                    url = $form.attr('action');
-                } else {
-                    url = window.location.href;
-                }
+                    $form = this.$el.parents('form');
+                    if ($form.length > 0){
+                        url = $form.attr('action');
+                    } else {
+                        url = window.location.href;
+                    }
                 }
             }
             return url;
@@ -391,6 +373,5 @@ define([
             }, this));
             return ri;
         }
-    };
-    registry.register(upload);
+    });
 });

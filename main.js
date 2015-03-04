@@ -1,20 +1,24 @@
 require.config({
-    baseUrl: '../src',
+    baseUrl: 'src',
     paths: {
         "dropzone":             "bower_components/dropzone/downloads/dropzone",
-        "jquery":               "bower_components/jquery/jquery",
-        "pat-parser":           "bower_components/patternslib/src/core/parser",
-        "pat-registry":         "bower_components/patternslib/src/core/registry",
-        "patterns":             "bower_components/patternslib/bundle",
-        "text":                 "bower_components/requirejs-text/text",
-        "underscore":           "bower_components/underscore/underscore",
-        "pat-logger":           "bower_components/patternslib/src/core/logger",
-        "pat-utils":            "bower_components/patternslib/src/core/utils",
+        "i18n":                 "bower_components/patternslib/src/core/i18n",
+        "jquery":               "bower_components/jquery/dist/jquery",
+        "jquery.browser":       "bower_components/jquery.browser/dist/jquery.browser",
+        "logging":              "bower_components/logging/src/logging",
+        "mockup-parser":        "bower_components/mockup-core/js/parser",
+        "mockup-patterns-base": "bower_components/mockup-core/js/pattern",
         "pat-compat":           "bower_components/patternslib/src/core/compat",
         "pat-jquery-ext":       "bower_components/patternslib/src/core/jquery-ext",
-        "upload":               "templates/upload.xml",
+        "pat-logger":           "bower_components/patternslib/src/core/logger",
+        "pat-parser":           "bower_components/patternslib/src/core/parser",
+        "pat-registry":         "bower_components/patternslib/src/core/registry",
+        "pat-utils":            "bower_components/patternslib/src/core/utils",
+        "patterns":             "bower_components/patternslib/bundle",
         "preview":              "templates/preview.xml",
-        "logging":              "bower_components/logging/src/logging",
+        "text":                 "bower_components/requirejs-text/text",
+        "underscore":           "bower_components/underscore/underscore",
+        "upload":               "templates/upload.xml",
     },
 
     "shim": {
@@ -22,7 +26,7 @@ require.config({
     }
 });
 
-require(["pat-registry", "pat-upload"], function(registry, upload) {
+require(["pat-registry", "pat-upload", "jquery.browser"], function(registry, upload) {
     window.patterns = registry;
     // workaround this MSIE bug :
     // https://dev.plone.org/plone/ticket/10894
