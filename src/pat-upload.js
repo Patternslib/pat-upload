@@ -3,7 +3,7 @@ define([
   "jquery",
   "underscore",
   "dropzone",
-  "pat-baset",
+  "pat-base",
   "pat-registry",
   "pat-parser",
   "i18n",
