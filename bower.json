@@ -20,12 +20,11 @@
     "tests"
   ],
   "dependencies": {
-    "underscore": "~1.7.0",
-    "mockup-core": "https://github.com/plone/mockup-core.git#07227ac1dc96858273d0462b29bfb86a1f0849f0",
+    "underscore": "~1.8.2",
     "dropzone": "~3.10.2",
     "requirejs-text": "~2.0.12",
-    "patternslib": "~2.0.4",
-    "mockup-core": "~2.1.4",
+    "patternslib": "master",
+    "jquery": "1.11.1",
     "jquery.browser": "~0.0.7"
   },
   "moduleType": [
