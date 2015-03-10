@@ -4,12 +4,13 @@ define([
   "underscore",
   "dropzone",
   "pat-base",
+  "pat-inject",
   "pat-registry",
   "pat-parser",
   "i18n",
   "text!upload",
   "text!preview",
-], function($, _, Dropzone, Base, registry, Parser, _t, UploadTemplate, PreviewTemplate) {
+], function($, _, Dropzone, Base, inject, registry, Parser, _t, UploadTemplate, PreviewTemplate) {
     "use strict";
 
     var parser = new Parser("upload");
@@ -284,6 +285,10 @@ define([
                     self.$el.removeClass(fileaddedClassName);
                     if (finished !== undefined && typeof(finished) === 'function'){
                         finished();
+                    }
+                    $form = self.$el.parents('form');
+                    if ($form.hasClass('pat-inject')) {
+                        $form.submit();
                     }
                     return;
                 }
