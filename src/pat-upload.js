@@ -286,7 +286,7 @@ define([
                     if (finished !== undefined && typeof(finished) === 'function'){
                         finished();
                     }
-                    $form = self.$el.parents('form');
+                    var $form = self.$el.closest('form');
                     if ($form.hasClass('pat-inject')) {
                         $form.submit();
                     }
