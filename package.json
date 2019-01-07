@@ -1,23 +1,49 @@
 {
   "name": "pat-upload",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "title": "A pattern to allow dropzone uploads",
   "description": "A pattern for drag & drop file upload",
-  "author": {
-    "name": "Jan Carel Brand",
-    "email": "brand@syslab.com"
-  },
   "repository": {
     "type": "git",
     "url": "git@github.com:Patternslib/pat-upload.git"
   },
   "dependencies": {
-    "bower": "^1.3.12",
-    "http-server": "^0.7.3"
+    "http-server": "^0.7.5",
+    "dropzone": "~5.4.0",
+    "patternslib": "git@github.com:Patternslib/patterns.git",
+    "jquery": "1.11.1"
   },
-  "devDependencies": {},
-  "licenses": [
+  "devDependencies": {
+    "webpack": "~4.0.0",
+    "webpack-cli": "",
+    "@webpack-cli/init": "",
+    "jasmine-webpack-plugin": "^0.1.1",
+    "exports-loader": "",
+    "expose-loader": "",
+    "imports-loader": ""
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "NODE_ENV=development webpack-dev-server --config webpack.config.js --open",
+    "build": "NODE_ENV=production webpack --config webpack.config.js",
+    "test": "karma start webpack/karma.config.js --single-run --browsers PhantomJS"
+  },
+  "homepage": "https://gitub.com/Patternslib/pat-upload",
+  "docs": "https://gitub.com/Patternslib/pat-upload",
+  "maintainers": [
     {
-      "type": "MIT"
+      "name": "Syslab.com GmbH",
+      "email": "info@syslab.com",
+      "url": "http://www.syslab.com"
+    },
+    {
+      "name": "Cornelis Kolbach",
+      "url": "http://cornae.com"
+    },
+    {
+      "name": "JC Brand",
+      "email": "jc@opkode.com",
+      "url": "https://www.opkode.com"
     }
   ]
 }

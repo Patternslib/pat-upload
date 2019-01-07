@@ -10,10 +10,6 @@ stamp-npm: package.json
 	npm install
 	touch stamp-npm
 
-stamp-bower: stamp-npm
-	$(BOWER) install
-	touch stamp-bower
-
 clean::
 	rm -f stamp-npm stamp-bower
 	rm -rf node_modules src/bower_components ~/.cache/bower
