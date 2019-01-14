@@ -23,7 +23,7 @@ define([
     parser.add_argument("label", "Drop files here…");   //string: Text to show instead of the default ('Drop files here…')
     parser.add_argument("name", "file");                //string: value for name attribute in the file input element ('file')
     parser.add_argument("previews-container", ".previews");  //selector: JavaScript selector for file preview in div element. (.previews)
-    parser.add_argument("timeout", 120);
+    parser.add_argument("timeout", 120000);
     parser.add_argument("trigger", "button");           //string: What triggers the upload.  'button' expects user to click upload button, 'auto' starts uploading automatically after the user drags something, and always hides the upload button. ('button')
     parser.add_argument("url");                         //string: If not used with a form, this option must provide the URL to submit to (null)
 
