@@ -89,14 +89,14 @@ module.exports = {
             "pat-upload":           "pat-upload.js",
             "patterns":             "patternslib/bundle",
             "preview":              "templates/preview.xml",
-            "text":                 "requirejs-text/text",
-            "underscore":           "underscore/underscore",
+            "text":                 "patternslib/node_modules/text-loader",
+            "underscore":           "patternslib/node_modules/underscore/underscore",
             "upload":               "templates/upload.xml"
         }
     },
     resolveLoader: {
         alias: {
-            text: 'text-loader'
+            text: 'patternslib/node_modules/text-loader'
         }
     },
     devtool: "source-map",
