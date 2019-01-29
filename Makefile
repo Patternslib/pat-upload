@@ -1,4 +1,3 @@
-BOWER 		?= node_modules/.bin/bower
 HTTPSERVE   ?= node_modules/.bin/http-server
 
 all:: designerhappy
@@ -11,10 +10,10 @@ stamp-npm: package.json
 	touch stamp-npm
 
 clean::
-	rm -f stamp-npm stamp-bower
-	rm -rf node_modules src/bower_components ~/.cache/bower
+	rm -f stamp-npm
+	rm -rf node_modules
 
 
-designerhappy:: stamp-npm stamp-bower
+designerhappy:: stamp-npm
 	printf "\n\n Designer, you can be happy now.\n Go to http://localhost:4001/demo/ to see the demo \n\n\n\n"
 	$(HTTPSERVE) -p 4001
