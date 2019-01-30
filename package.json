@@ -10,8 +10,7 @@
   "dependencies": {
     "http-server": "^0.7.5",
     "dropzone": "~5.4.0",
-    "patternslib": "git@github.com:Patternslib/patterns.git",
-    "jquery": "1.11.0"
+    "patternslib": "git@github.com:Patternslib/patterns.git"
   },
   "devDependencies": {
     "webpack": "~4.0.0",
