@@ -8,18 +8,23 @@
     "url": "git@github.com:Patternslib/pat-upload.git"
   },
   "dependencies": {
-    "http-server": "^0.7.5",
-    "dropzone": "~5.4.0",
-    "patternslib": "git@github.com:Patternslib/patterns.git"
+    "http-server": "^0.11.1",
+    "dropzone": "~5.5.1"
   },
   "devDependencies": {
-    "webpack": "~4.0.0",
-    "webpack-cli": "",
-    "@webpack-cli/init": "",
+    "@webpack-cli/init": "^0.1.3",
+    "exports-loader": "^0.7.0",
+    "expose-loader": "^0.7.5",
+    "imports-loader": "^0.8.0",
+    "html-webpack-plugin": "^4.0.0-beta.5",
     "jasmine-webpack-plugin": "^0.1.1",
-    "exports-loader": "",
-    "expose-loader": "",
-    "imports-loader": ""
+    "jquery": "3.3.1",
+    "jquery.browser": "0.1.0",
+    "karma": "^4.0.0",
+    "lodash": "^4.17.11",
+    "patternslib": "git@github.com:Patternslib/patterns",
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2"
   },
   "license": "MIT",
   "scripts": {
