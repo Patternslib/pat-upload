@@ -1,6 +1,6 @@
 {
   "name": "pat-upload",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "title": "A pattern to allow dropzone uploads",
   "description": "A pattern for drag & drop file upload",
   "repository": {
