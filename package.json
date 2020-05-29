@@ -7,30 +7,7 @@
     "type": "git",
     "url": "git@github.com:Patternslib/pat-upload.git"
   },
-  "dependencies": {
-    "dropzone": "~5.5.1"
-  },
-  "devDependencies": {
-    "@webpack-cli/init": "^0.1.5",
-    "exports-loader": "^0.7.0",
-    "expose-loader": "^0.7.5",
-    "html-webpack-plugin": "^4.0.0-beta.5",
-    "imports-loader": "^0.8.0",
-    "jasmine-webpack-plugin": "^0.1.1",
-    "jquery": "3.4.1",
-    "jquery.browser": "0.1.0",
-    "karma": "^4.1.0",
-    "lodash": "^4.17.11",
-    "patternslib": "git@github.com:Patternslib/patterns",
-    "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2"
-  },
   "license": "MIT",
-  "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --config webpack.config.js --open",
-    "build": "NODE_ENV=production webpack --config webpack.config.js",
-    "test": "karma start webpack/karma.config.js --single-run --browsers PhantomJS"
-  },
   "homepage": "https://gitub.com/Patternslib/pat-upload",
   "docs": "https://gitub.com/Patternslib/pat-upload",
   "maintainers": [
@@ -48,5 +25,52 @@
       "email": "jc@opkode.com",
       "url": "https://www.opkode.com"
     }
-  ]
+  ],
+  "dependencies": {
+    "dropzone": "~5.5.1",
+    "patternslib": "https://github.com/Patternslib/Patterns#cc8d8d4ddfacc9d80fecf0b183f39eef365abd9f"
+
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.9.6",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "core-js": "3",
+    "eslint": "^7.0.0",
+    "jquery": "^3.5.0",
+    "raw-loader": "^4.0.1",
+    "underscore": "^1.9.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --config webpack.config.js --open --env.NODE_ENV=development",
+    "build": "webpack --config webpack.config.js --env.NODE_ENV=production"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "browser": true
+    },
+    "parser": "babel-eslint"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "useBuiltIns": "entry",
+          "corejs": 3
+        }
+      ]
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ]
+  }
 }
