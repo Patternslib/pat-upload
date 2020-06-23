@@ -1,11 +1,11 @@
 import $ from "jquery";
 import _ from "underscore";
-import _t from "patternslib/src/core/i18n";
-import Base from "patternslib/src/core/base";
+import { base as Base } from "@patternslib/core";
+import { parser as Parser } from "@patternslib/core";
+import { i18n as _t } from "@patternslib/core";
 import Dropzone from "dropzone";
-import Parser from "patternslib/src/core/parser";
-import template_preview from "template/preview.xml";
-import template_upload from "template/upload.xml";
+import template_preview from "./templates/preview.html";
+import template_upload from "./templates/upload.html";
 
 
 const parser = new Parser("upload");

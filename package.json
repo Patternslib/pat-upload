@@ -28,7 +28,7 @@
   ],
   "dependencies": {
     "dropzone": "~5.7.1",
-    "patternslib": "https://github.com/Patternslib/Patterns#4f1bfeb3ddee742400b734af45384c671d7b865b"
+    "@patternslib/core": "https://github.com/patternslib/patternslib-core#95e4682d0647f62cd7c4c9b188b82b970cffb3dd"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.9.6",
