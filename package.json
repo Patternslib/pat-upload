@@ -1,6 +1,6 @@
 {
   "name": "pat-upload",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "title": "A pattern to allow dropzone uploads",
   "description": "A pattern for drag & drop file upload",
   "repository": {
@@ -27,9 +27,8 @@
     }
   ],
   "dependencies": {
-    "dropzone": "~5.5.1",
-    "patternslib": "https://github.com/Patternslib/Patterns#cc8d8d4ddfacc9d80fecf0b183f39eef365abd9f"
-
+    "dropzone": "~5.7.1",
+    "patternslib": "https://github.com/Patternslib/Patterns#4f1bfeb3ddee742400b734af45384c671d7b865b"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.9.6",
