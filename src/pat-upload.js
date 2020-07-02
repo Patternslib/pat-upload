@@ -4,8 +4,8 @@ import _t from "patternslib/src/core/i18n";
 import Base from "patternslib/src/core/base";
 import Dropzone from "dropzone";
 import Parser from "patternslib/src/core/parser";
-import template_preview from "template/preview.xml";
-import template_upload from "template/upload.xml";
+import template_preview from "./templates/preview.html";
+import template_upload from "./templates/upload.html";
 
 
 const parser = new Parser("upload");

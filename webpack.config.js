@@ -23,7 +23,7 @@ module.exports = (env) => {
           loader: "babel-loader",
         },
         {
-          test: /\.xml$/i,
+          test: /\.html$/i,
           use: 'raw-loader',
         },
       ],
