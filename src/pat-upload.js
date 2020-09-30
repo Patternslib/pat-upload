@@ -1,11 +1,14 @@
+import "regenerator-runtime/runtime"; // needed for ``await`` support
 import $ from "jquery";
 import _ from "underscore";
 import _t from "patternslib/src/core/i18n";
 import Base from "patternslib/src/core/base";
-import Dropzone from "dropzone";
 import Parser from "patternslib/src/core/parser";
-import template_preview from "./templates/preview.html";
-import template_upload from "./templates/upload.html";
+
+// Lazy loading modules.
+let Dropzone;
+let template_preview;
+let template_upload;
 
 const parser = new Parser("upload");
 parser.add_argument("concurrent-uploads", "multiple", ["multiple", "single"]); // Only one upload at a time, or multiple ones simultaneously?
@@ -21,9 +24,6 @@ parser.add_argument("timeout", 120000);
 parser.add_argument("trigger", "button"); //string: What triggers the upload.  'button' expects user to click upload button, 'auto' starts uploading automatically after the user drags something, and always hides the upload button. ('button')
 parser.add_argument("url"); //string: If not used with a form, this option must provide the URL to submit to (null)
 
-/* we do not want this plugin to auto discover */
-Dropzone.autoDiscover = false;
-
 export default Base.extend({
     name: "upload",
     trigger: ".pat-upload",
@@ -35,7 +35,15 @@ export default Base.extend({
         previewTemplate: null,
     },
 
-    init: function ($el, opts) {
+    async init($el, opts) {
+        Dropzone = await import("dropzone");
+        Dropzone = Dropzone.default;
+        Dropzone.autoDiscover = false; // we do not want this plugin to auto discover
+        template_preview = await import("./templates/preview.html");
+        template_preview = template_preview.default;
+        template_upload = await import("./templates/upload.html");
+        template_upload = template_upload.default;
+
         this.cfgs = _.extend(
             _.clone(this.defaults),
             parser.parse($el, opts, true)[0]
@@ -80,14 +88,14 @@ export default Base.extend({
         this.registerHandlers();
     },
 
-    refresh: function () {
+    refresh() {
         var $form = this.$el.closest("form");
         if ($form.hasClass("pat-inject")) {
             $form.submit();
         }
     },
 
-    registerHandlers: function () {
+    registerHandlers() {
         this.dropzone.on(
             "complete",
             $.proxy(function (file) {
@@ -107,7 +115,7 @@ export default Base.extend({
         );
     },
 
-    getUrl: function () {
+    getUrl() {
         var $form;
         var url = this.cfgs.url;
         if (!url) {
@@ -118,7 +126,7 @@ export default Base.extend({
         return url;
     },
 
-    getDzoneOptions: function () {
+    getDzoneOptions() {
         if (typeof this.cfgs.clickable === "string") {
             this.cfgs.clickable = this.cfgs.clickable === "true" ? true : false;
         }
