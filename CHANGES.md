@@ -5,3 +5,4 @@
 
 - Upgrade to ES6.
 - Implenent lazy loading for external libraries via dynamic imports.
+- Depend on latest Dropzone 5.7.2.

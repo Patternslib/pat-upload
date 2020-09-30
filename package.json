@@ -27,7 +27,7 @@
     }
   ],
   "dependencies": {
-    "dropzone": "~5.7.1",
+    "dropzone": "~5.7.2",
     "patternslib": "https://github.com/Patternslib/Patterns#master"
   },
   "devDependencies": {
