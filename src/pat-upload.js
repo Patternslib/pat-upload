@@ -7,105 +7,120 @@ import Parser from "patternslib/src/core/parser";
 import template_preview from "./templates/preview.html";
 import template_upload from "./templates/upload.html";
 
-
 const parser = new Parser("upload");
 parser.add_argument("concurrent-uploads", "multiple", ["multiple", "single"]); // Only one upload at a time, or multiple ones simultaneously?
-parser.add_argument("ajax-upload", true);           //boolean: true or false for letting the widget upload the files via ajax. If false the form will act like a normal form. (true)
-parser.add_argument("post-upload", true);           //boolean: condition value for the file preview in div element to fadeout after file upload is completed. (true)
-parser.add_argument("class-name", "upload");        //string: value for class attribute in the form element ('upload')
-parser.add_argument("clickable", "true");           //boolean: If you can click on container to also upload (true)
-parser.add_argument("current-path");                //string: Current path related items is starting with (null)
-parser.add_argument("label", "Drop files here…");   //string: Text to show instead of the default ('Drop files here…')
-parser.add_argument("name", "file");                //string: value for name attribute in the file input element ('file')
-parser.add_argument("previews-container", ".previews");  //selector: JavaScript selector for file preview in div element. (.previews)
+parser.add_argument("ajax-upload", true); //boolean: true or false for letting the widget upload the files via ajax. If false the form will act like a normal form. (true)
+parser.add_argument("post-upload", true); //boolean: condition value for the file preview in div element to fadeout after file upload is completed. (true)
+parser.add_argument("class-name", "upload"); //string: value for class attribute in the form element ('upload')
+parser.add_argument("clickable", "true"); //boolean: If you can click on container to also upload (true)
+parser.add_argument("current-path"); //string: Current path related items is starting with (null)
+parser.add_argument("label", "Drop files here…"); //string: Text to show instead of the default ('Drop files here…')
+parser.add_argument("name", "file"); //string: value for name attribute in the file input element ('file')
+parser.add_argument("previews-container", ".previews"); //selector: JavaScript selector for file preview in div element. (.previews)
 parser.add_argument("timeout", 120000);
-parser.add_argument("trigger", "button");           //string: What triggers the upload.  'button' expects user to click upload button, 'auto' starts uploading automatically after the user drags something, and always hides the upload button. ('button')
-parser.add_argument("url");                         //string: If not used with a form, this option must provide the URL to submit to (null)
+parser.add_argument("trigger", "button"); //string: What triggers the upload.  'button' expects user to click upload button, 'auto' starts uploading automatically after the user drags something, and always hides the upload button. ('button')
+parser.add_argument("url"); //string: If not used with a form, this option must provide the URL to submit to (null)
 
 /* we do not want this plugin to auto discover */
 Dropzone.autoDiscover = false;
 
-
 export default Base.extend({
-    name: 'upload',
-    trigger: '.pat-upload',
-    parser: 'patternslib',
+    name: "upload",
+    trigger: ".pat-upload",
+    parser: "patternslib",
     defaults: {
         addRemoveLinks: false,
         maxFiles: null,
         maxFilesize: 99999999, // let's not have a max by default...
-        previewTemplate: null
+        previewTemplate: null,
     },
 
-    init: function($el, opts) {
-        this.cfgs = _.extend(_.clone(this.defaults), parser.parse($el, opts, true)[0]);
+    init: function ($el, opts) {
+        this.cfgs = _.extend(
+            _.clone(this.defaults),
+            parser.parse($el, opts, true)[0]
+        );
         this.$el.addClass(this.cfgs.className);
-        this.$el.append(_.template(template_upload)({_t: _t, label: _t(this.cfgs.label)}));
+        this.$el.append(
+            _.template(template_upload)({ _t: _t, label: _t(this.cfgs.label) })
+        );
 
         if (!this.cfgs.ajaxUpload) {
             // no ajax upload, drop the fallback
-            $('.fallback', this.$el).remove();
+            $(".fallback", this.$el).remove();
         }
         try {
             // if init of Dropzone fails it says nothing and
             // it fails silently. Using this block we make sure
             // that if you break it w/ some weird or missing option
             // you can get a proper log of it
-            this.dropzone = new Dropzone($('.upload-area', this.$el)[0], this.getDzoneOptions());
+            this.dropzone = new Dropzone(
+                $(".upload-area", this.$el)[0],
+                this.getDzoneOptions()
+            );
             // Apply the patch described here:
             //  https://github.com/enyo/dropzone/issues/1640
             //  https://gitlab.com/meno/dropzone/-/issues/48
-            this.dropzone.handleFiles = function(files) {
-              var _this5 = this;
-              var files_array = [];
-              for (var i = 0; i < files.length; i++) {
-                files_array.push(files[i]);
-              }
-              return files_array.map(function(file) {
-                return _this5.addFile(file);
-              });
+            this.dropzone.handleFiles = function (files) {
+                var _this5 = this;
+                var files_array = [];
+                for (var i = 0; i < files.length; i++) {
+                    files_array.push(files[i]);
+                }
+                return files_array.map(function (file) {
+                    return _this5.addFile(file);
+                });
             };
         } catch (e) {
-            if (window.DEBUG) { console.log(e); }
+            if (window.DEBUG) {
+                console.log(e);
+            }
             throw e;
         }
         this.registerHandlers();
     },
 
-    refresh: function() {
-        var $form = this.$el.closest('form');
-        if ($form.hasClass('pat-inject')) {
+    refresh: function () {
+        var $form = this.$el.closest("form");
+        if ($form.hasClass("pat-inject")) {
             $form.submit();
         }
     },
 
-    registerHandlers: function() {
-        this.dropzone.on('complete', $.proxy(function(file) {
-            if (this.cfgs.postUpload) {
-                setTimeout(function() {
-                    $(file.previewElement).fadeOut();
-                }, 1000);
-            }
-            if (_.filter(this.dropzone.files,
-                         function(f) { return f.status !== "success"; }).length === 0) {
-                this.refresh();
-            }
-        }, this));
+    registerHandlers: function () {
+        this.dropzone.on(
+            "complete",
+            $.proxy(function (file) {
+                if (this.cfgs.postUpload) {
+                    setTimeout(function () {
+                        $(file.previewElement).fadeOut();
+                    }, 1000);
+                }
+                if (
+                    _.filter(this.dropzone.files, function (f) {
+                        return f.status !== "success";
+                    }).length === 0
+                ) {
+                    this.refresh();
+                }
+            }, this)
+        );
     },
 
-    getUrl: function() {
+    getUrl: function () {
         var $form;
         var url = this.cfgs.url;
         if (!url) {
-            $form = this.$el.closest('form');
-            url = ($form.length > 0) ? $form.attr('action') : window.location.href;
+            $form = this.$el.closest("form");
+            url =
+                $form.length > 0 ? $form.attr("action") : window.location.href;
         }
         return url;
     },
 
-    getDzoneOptions: function() {
-        if (typeof(this.cfgs.clickable) === 'string') {
-            this.cfgs.clickable = this.cfgs.clickable === 'true' ? true : false;
+    getDzoneOptions: function () {
+        if (typeof this.cfgs.clickable === "string") {
+            this.cfgs.clickable = this.cfgs.clickable === "true" ? true : false;
         }
         var options = $.extend({}, this.cfgs);
         delete options.postUpload;
@@ -119,10 +134,11 @@ export default Base.extend({
             }
         }
         options.url = this.getUrl();
-        options.uploadMultiple = options.concurrentUploads === "multiple" ? true : false;
+        options.uploadMultiple =
+            options.concurrentUploads === "multiple" ? true : false;
         options.previewTemplate = template_preview;
         // if our element is a form we should force some values
         // https://github.com/enyo/dropzone/wiki/Combine-normal-form-with-Dropzone
         return options;
-    }
+    },
 });
