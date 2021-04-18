@@ -1,11 +1,12 @@
 {
-    "name": "pat-PATTERN_TEMPLATE",
+    "name": "pat-upload",
     "version": "1.0.0",
-    "description": "A pattern for PATTERN_TEMPLATE",
+    "description": "A pattern for drag & drop file upload",
     "license": "MIT",
-    "main": "./src/PATTERN_TEMPLATE.js",
+    "main": "./src/pat-upload.js",
     "dependencies": {
-        "@patternslib/patternslib": "4"
+        "@patternslib/patternslib": "4",
+        "dropzone": "~5.7.2"
     },
     "devDependencies": {
         "@babel/core": "^7.13.15",
@@ -70,9 +71,9 @@
         "name": "Syslab GesmbH",
         "email": "dev@syslab.com"
     },
-    "homepage": "https://gitub.com/patternslib/pat-PATTERN_TEMPLATE",
+    "homepage": "https://github.com/patternslib/pat-upload",
     "repository": {
         "type": "git",
-        "url": "https://gitub.com/patternslib/pat-PATTERN_TEMPLATE.git"
+        "url": "https://github.com/patternslib/pat-upload.git"
     }
 }

@@ -1,5 +1,4 @@
-import registry from "patternslib/src/core/registry.js";
-import "./src/pat-upload.js";
-
+import registry from "@patternslib/patternslib/src/core/registry";
+import "./src/pat-upload";
 
 registry.init();
