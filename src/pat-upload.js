@@ -32,6 +32,10 @@ export default Base.extend({
     template_preview: null,
 
     async init($el, opts) {
+        if (window.__patternslib_import_styles) {
+            import("dropzone/dist/basic.css");
+        }
+
         const Dropzone = (await import("dropzone")).default;
         Dropzone.autoDiscover = false; // we do not want this plugin to auto discover
         this.template_preview = (await import("./templates/preview.html")).default;
