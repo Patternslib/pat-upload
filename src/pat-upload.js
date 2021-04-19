@@ -1,14 +1,9 @@
 import "regenerator-runtime/runtime"; // needed for ``await`` support
 import $ from "jquery";
 import _ from "underscore";
-import _t from "patternslib/src/core/i18n";
-import Base from "patternslib/src/core/base";
-import Parser from "patternslib/src/core/parser";
-
-// Lazy loading modules.
-let Dropzone;
-let template_preview;
-let template_upload;
+import _t from "@patternslib/patternslib/src/core/i18n";
+import Base from "@patternslib/patternslib/src/core/base";
+import Parser from "@patternslib/patternslib/src/core/parser";
 
 const parser = new Parser("upload");
 parser.add_argument("concurrent-uploads", "multiple", ["multiple", "single"]); // Only one upload at a time, or multiple ones simultaneously?

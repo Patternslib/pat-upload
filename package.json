@@ -6,7 +6,7 @@
     "main": "./src/pat-upload.js",
     "dependencies": {
         "@patternslib/patternslib": "4",
-        "dropzone": "~5.7.2"
+        "dropzone": "~5.9.2"
     },
     "devDependencies": {
         "@babel/core": "^7.13.15",
