@@ -34,20 +34,15 @@ export default Base.extend({
         maxFilesize: 99999999, // let's not have a max by default...
         previewTemplate: null,
     },
+    template_preview: null,
 
     async init($el, opts) {
-        Dropzone = await import("dropzone");
-        Dropzone = Dropzone.default;
+        const Dropzone = (await import("dropzone")).default;
         Dropzone.autoDiscover = false; // we do not want this plugin to auto discover
-        template_preview = await import("./templates/preview.html");
-        template_preview = template_preview.default;
-        template_upload = await import("./templates/upload.html");
-        template_upload = template_upload.default;
+        this.template_preview = (await import("./templates/preview.html")).default;
+        const template_upload = (await import("./templates/upload.html")).default;
 
-        this.cfgs = _.extend(
-            _.clone(this.defaults),
-            parser.parse($el, opts, true)[0]
-        );
+        this.cfgs = _.extend(_.clone(this.defaults), parser.parse($el, opts, true)[0]);
         this.$el.addClass(this.cfgs.className);
         this.$el.append(
             _.template(template_upload)({ _t: _t, label: _t(this.cfgs.label) })
@@ -120,8 +115,7 @@ export default Base.extend({
         var url = this.cfgs.url;
         if (!url) {
             $form = this.$el.closest("form");
-            url =
-                $form.length > 0 ? $form.attr("action") : window.location.href;
+            url = $form.length > 0 ? $form.attr("action") : window.location.href;
         }
         return url;
     },
@@ -142,9 +136,8 @@ export default Base.extend({
             }
         }
         options.url = this.getUrl();
-        options.uploadMultiple =
-            options.concurrentUploads === "multiple" ? true : false;
-        options.previewTemplate = template_preview;
+        options.uploadMultiple = options.concurrentUploads === "multiple" ? true : false;
+        options.previewTemplate = this.template_preview;
         // if our element is a form we should force some values
         // https://github.com/enyo/dropzone/wiki/Combine-normal-form-with-Dropzone
         return options;
