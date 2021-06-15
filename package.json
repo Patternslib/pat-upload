@@ -5,7 +5,7 @@
     "license": "MIT",
     "main": "./src/pat-upload.js",
     "dependencies": {
-        "@patternslib/patternslib": "4",
+        "@patternslib/patternslib": "^4.4.0",
         "dropzone": "~5.9.2"
     },
     "devDependencies": {
