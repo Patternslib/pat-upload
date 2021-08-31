@@ -8,7 +8,7 @@ import Parser from "@patternslib/patternslib/src/core/parser";
 
 const log = logging.getLogger("pat-upload");
 
-const parser = new Parser("upload");
+export const parser = new Parser("upload");
 parser.add_argument("concurrent-uploads", "multiple", ["multiple", "single"]); // Only one upload at a time, or multiple ones simultaneously?
 parser.add_argument("ajax-upload", true); //boolean: true or false for letting the widget upload the files via ajax. If false the form will act like a normal form. (true)
 parser.add_argument("post-upload", true); //boolean: condition value for the file preview in div element to fadeout after file upload is completed. (true)
