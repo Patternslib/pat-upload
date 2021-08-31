@@ -60,19 +60,6 @@ export default Base.extend({
                 $(".upload-area", this.$el)[0],
                 this.getDzoneOptions()
             );
-            // Apply the patch described here:
-            //  https://github.com/enyo/dropzone/issues/1640
-            //  https://gitlab.com/meno/dropzone/-/issues/48
-            this.dropzone.handleFiles = function (files) {
-                var _this5 = this;
-                var files_array = [];
-                for (var i = 0; i < files.length; i++) {
-                    files_array.push(files[i]);
-                }
-                return files_array.map(function (file) {
-                    return _this5.addFile(file);
-                });
-            };
         } catch (e) {
             if (window.DEBUG) {
                 console.log(e);
