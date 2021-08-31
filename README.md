@@ -2,7 +2,7 @@
 
 A pattern that creates a drop area for uploading multiple files.
 
-Based on [fineuploader](http://fineuploader.com).
+Based on [DropzoneJS](https://www.dropzonejs.com/).
 
 ##demo
 
