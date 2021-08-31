@@ -71,7 +71,7 @@ export default Base.extend({
     },
 
     refresh() {
-        var $form = this.$el.closest("form");
+        const $form = this.$el.closest("form");
         if ($form.hasClass("pat-inject")) {
             $form.submit();
         }
@@ -98,10 +98,9 @@ export default Base.extend({
     },
 
     getUrl() {
-        var $form;
-        var url = this.cfgs.url;
+        let url = this.cfgs.url;
         if (!url) {
-            $form = this.$el.closest("form");
+            const $form = this.$el.closest("form");
             url = $form.length > 0 ? $form.attr("action") : window.location.href;
         }
         return url;
@@ -111,13 +110,13 @@ export default Base.extend({
         if (typeof this.cfgs.clickable === "string") {
             this.cfgs.clickable = this.cfgs.clickable === "true" ? true : false;
         }
-        var options = $.extend({}, this.cfgs);
+        const options = $.extend({}, this.cfgs);
         delete options.postUpload;
         if (this.cfgs.previewsContainer) {
             /* If they have a select but it's not an id, let's make an id selector
              * so we can target the correct container. dropzone is weird here...
              */
-            var $preview = this.$el.find(this.cfgs.previewsContainer);
+            const $preview = this.$el.find(this.cfgs.previewsContainer);
             if ($preview.length > 0) {
                 options.previewsContainer = $preview[0];
             }
