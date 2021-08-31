@@ -3,7 +3,10 @@ import $ from "jquery";
 import _ from "underscore";
 import _t from "@patternslib/patternslib/src/core/i18n";
 import Base from "@patternslib/patternslib/src/core/base";
+import logging from "@patternslib/patternslib/src/core/logging";
 import Parser from "@patternslib/patternslib/src/core/parser";
+
+const log = logging.getLogger("pat-upload");
 
 const parser = new Parser("upload");
 parser.add_argument("concurrent-uploads", "multiple", ["multiple", "single"]); // Only one upload at a time, or multiple ones simultaneously?
@@ -61,9 +64,7 @@ export default Base.extend({
                 this.getDzoneOptions()
             );
         } catch (e) {
-            if (window.DEBUG) {
-                console.log(e);
-            }
+            log.error(e);
             throw e;
         }
         this.registerHandlers();
