@@ -1,3 +1,19 @@
+## [1.2.0](https://github.com/patternslib/pat-upload/compare/1.1.0...1.2.0) (2021-11-18)
+
+
+### Features
+
+* Export parser to align with Patternslib. This allows for overriding default options. ([68f496f](https://github.com/patternslib/pat-upload/commit/68f496f14d1df080d81de04f3f850557f3224deb))
+
+
+### Maintenance
+
+* Modernize code. ([b50f672](https://github.com/patternslib/pat-upload/commit/b50f672c084610172c1fb8afb3f715430af64586))
+* Remove Safari patch as it is already fixed upstream. See: https://github.com/dropzone/dropzone/issues/1640 ([67bcab9](https://github.com/patternslib/pat-upload/commit/67bcab9458ab38e5b839cd15ed8fa7aca74ea04b))
+* Upgrade up to minor versions. ([5ac5edb](https://github.com/patternslib/pat-upload/commit/5ac5edbf91752ec936385d2839624b43201ca502))
+* Use logging framework. ([2ca82d9](https://github.com/patternslib/pat-upload/commit/2ca82d967d7fbf835b529b378c9f29c8badc8c76))
+* We're using DropzoneJS, not Fine Uploader. ([5aac53c](https://github.com/patternslib/pat-upload/commit/5aac53cd0d5c85fe7d379520dfd03fac6df49289))
+
 ## [1.1.0](https://github.com/patternslib/pat-upload/compare/1.0.0...1.1.0) (2021-06-15)
 
 
