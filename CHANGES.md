@@ -1,3 +1,20 @@
+## [2.0.0](https://github.com/patternslib/pat-upload/compare/1.2.0...2.0.0) (2021-11-18)
+
+
+### Breaking Changes
+
+* Upgrade to Webpack 5. ([a906da6](https://github.com/patternslib/pat-upload/commit/a906da65eea70b1c380e4f4cc6464e94872a41e5))
+
+
+
+### Maintenance
+
+* **build:** Extend Patternslib release-it config file. ([203da44](https://github.com/patternslib/pat-upload/commit/203da4454e9984da76580a3ea811dadcec449ea6))
+
+* **build:** Release on GitHub releases. ([b09a639](https://github.com/patternslib/pat-upload/commit/b09a639a24d9ecd32dd6b455f82305f328f086ef))
+
+* **dependencies:** Upgrade Dropzone to 5.9.3. ([4de872c](https://github.com/patternslib/pat-upload/commit/4de872c0d210e379e3e24f86f4bc37a61076ab7f))
+
 ## [1.2.0](https://github.com/patternslib/pat-upload/compare/1.1.0...1.2.0) (2021-11-18)
 
 
