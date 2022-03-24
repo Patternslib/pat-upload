@@ -1,3 +1,16 @@
+### [2.0.1](https://github.com/patternslib/pat-upload/compare/2.0.0...2.0.1) (2022-03-24)
+
+
+### Bug Fixes
+
+* Add missing dependency underscore. ([a153ff2](https://github.com/patternslib/pat-upload/commit/a153ff2ab9b6cb1114e1d1be5034503a2c3ed347))
+
+
+
+### Maintenance
+
+* **webpack:** Configure devServer static directory. ([8c9a4fb](https://github.com/patternslib/pat-upload/commit/8c9a4fbbc2984849a946d08e57ac2ac4cfffff93))
+
 ## [2.0.0](https://github.com/patternslib/pat-upload/compare/1.2.0...2.0.0) (2021-11-18)
 
 
