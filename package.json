@@ -5,9 +5,11 @@
     "license": "MIT",
     "main": "./src/pat-upload.js",
     "dependencies": {
-        "@patternslib/patternslib": "^6.0.1",
         "dropzone": "~5.9.3",
         "underscore": "^1.13.2"
+    },
+    "peerDependencies": {
+        "@patternslib/patternslib": "*"
     },
     "devDependencies": {
         "@babel/core": "^7.16.0",
