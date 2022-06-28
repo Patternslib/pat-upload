@@ -2,6 +2,16 @@
 
 
 
+## [3.0.0](https://github.com/patternslib/pat-upload/compare/3.0.0-alpha.0...3.0.0) (2022-06-28)
+
+
+### Maintenance
+
+
+* @patternslib/patternslib needs to be installed. Adding to devDependencies to avoid version clashes with other packages depending on it. ([f97ed43](https://github.com/patternslib/pat-upload/commit/f97ed436c7b24db7d0784227bfab52402827c016))
+
+* Upgrade to @patternslib/dev 2.2.0 and adapt module federation config. ([fc0636a](https://github.com/patternslib/pat-upload/commit/fc0636a9e7f4fafc18adc05bb4ab75b27e3b63ee))
+
 ## [3.0.0-alpha.0](https://github.com/patternslib/pat-upload/compare/2.0.1...3.0.0-alpha.0) (2022-06-15)
 
 
