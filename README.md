@@ -16,6 +16,21 @@ The run the Makefile:
 
 And then in your browser open: http://localhost:4001
 
+
+## Form protection
+
+Some systems allow to pass a authentication token to protect against CSRF attacks.
+You can do this with pat-upload by adding a URL parameter, even if the upload happens in a POST request.
+This is a valid practice, see: https://stackoverflow.com/a/1592446/1337474
+
+For example, for a plone.protect style token, do:
+
+      <fieldset class="pat-upload"
+                data-pat-upload="url: https://example.com/upload?_authenticator=TOKEN"
+      >
+      </fieldset>
+
+
 ## Documentation
 
 Property | Value | Default | Type | Description
