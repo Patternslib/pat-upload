@@ -71,9 +71,15 @@ export default Base.extend({
     },
 
     refresh() {
-        const $form = this.$el.closest("form");
-        if ($form.hasClass("pat-inject")) {
-            $form.submit();
+        const subform = this.el.closest(".pat-subform");
+        if (subform) {
+            const button = subform.querySelector("button[type='submit']");
+            button?.click();
+        } else {
+            const form = this.el.closest("form");
+            if (form.matches(".pat-inject")) {
+                form.submit();
+            }
         }
     },
 
