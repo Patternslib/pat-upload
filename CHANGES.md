@@ -2,6 +2,31 @@
 
 
 
+## [3.1.0](https://github.com/patternslib/pat-upload/compare/3.0.0...3.1.0) (2022-09-20)
+
+
+### Features
+
+
+* Allow to pass additional request headers. ([79ab753](https://github.com/patternslib/pat-upload/commit/79ab75337109d45cffc00770a868002b1593265f))
+
+* Support pat-subform and do a seperate submit on it after a successful upload. ([3c6cced](https://github.com/patternslib/pat-upload/commit/3c6cced414c9018ac366c8fcce6d04186646418e))
+
+
+### Maintenance
+
+
+* Add bundle-pre step to unlink all linked depenencies before building. ([e53c9a6](https://github.com/patternslib/pat-upload/commit/e53c9a6805a58a579f62739007d9c366e8a4186f))
+
+* Documentation and example for form protection with plone.protect style tokens. ([d301e61](https://github.com/patternslib/pat-upload/commit/d301e618b26dea219b62443f67f6e6b9b6a92832))
+
+* Fix URL to bundle. ([cc21ae0](https://github.com/patternslib/pat-upload/commit/cc21ae09836c54e7fa612a5baeaa58901a9c1ff6))
+
+* Update webpack config. ([41702c0](https://github.com/patternslib/pat-upload/commit/41702c034e600655a045bb27cac77072d4e2a143))
+
+* Upgrade dependencies. ([6e890de](https://github.com/patternslib/pat-upload/commit/6e890de6a3f68ee2ba38b711934fd1af6ea7306b))
+
+
 ## [3.0.0](https://github.com/patternslib/pat-upload/compare/3.0.0-alpha.0...3.0.0) (2022-06-28)
 
 
