@@ -20,6 +20,7 @@ parser.add_argument("previews-container", ".previews"); //selector: JavaScript s
 parser.add_argument("timeout", 120000);
 parser.add_argument("trigger", "button"); //string: What triggers the upload.  'button' expects user to click upload button, 'auto' starts uploading automatically after the user drags something, and always hides the upload button. ('button')
 parser.add_argument("url"); //string: If not used with a form, this option must provide the URL to submit to (null)
+parser.add_argument("headers"); // Optional headers as String in the form of "{'Key': 'Value'}"
 
 export default Base.extend({
     name: "upload",
@@ -70,9 +71,15 @@ export default Base.extend({
     },
 
     refresh() {
-        const $form = this.$el.closest("form");
-        if ($form.hasClass("pat-inject")) {
-            $form.submit();
+        const subform = this.el.closest(".pat-subform");
+        if (subform) {
+            const button = subform.querySelector("button[type='submit']");
+            button?.click();
+        } else {
+            const form = this.el.closest("form");
+            if (form.matches(".pat-inject")) {
+                form.submit();
+            }
         }
     },
 
@@ -125,6 +132,15 @@ export default Base.extend({
         options.previewTemplate = this.template_preview;
         // if our element is a form we should force some values
         // https://github.com/enyo/dropzone/wiki/Combine-normal-form-with-Dropzone
+
+        try {
+            if (this.cfgs.headers) {
+                options.headers = JSON.parse(this.cfgs.headers);
+            }
+        } catch (e) {
+            log.warn("Could not parse the headers option");
+        }
+
         return options;
     },
 });

@@ -6,11 +6,11 @@
     "main": "./src/pat-upload.js",
     "dependencies": {
         "dropzone": "^5.9.3",
-        "jquery": "^3.6.0",
+        "jquery": "^3.6.1",
         "underscore": "^1.13.4"
     },
     "devDependencies": {
-        "@patternslib/dev": "^2.2.0",
+        "@patternslib/dev": "^2.7.1",
         "@patternslib/patternslib": "*"
     },
     "scripts": {
