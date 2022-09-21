@@ -73,11 +73,13 @@ export default Base.extend({
     refresh() {
         const subform = this.el.closest(".pat-subform");
         if (subform) {
+            log.debug("Refresh subform");
             const button = subform.querySelector("button[type='submit']");
             button?.click();
         } else {
             const form = this.el.closest("form");
-            if (form.matches(".pat-inject")) {
+            if (form && form.matches(".pat-inject")) {
+                log.debug("Refresh form");
                 form.submit();
             }
         }
