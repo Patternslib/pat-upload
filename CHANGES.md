@@ -1,6 +1,24 @@
 # Changelog
 
 
+
+## [3.1.1](https://github.com/patternslib/pat-upload/compare/3.1.0...3.1.1) (2022-09-21)
+
+
+### Bug Fixes
+
+
+* Fix brown-bag release (3.0.0). ([d7f63e5](https://github.com/patternslib/pat-upload/commit/d7f63e5c20163291bcfff7a6190f38c6de1813ee))
+
+
+### Maintenance
+
+
+* Add mode debugging statements. ([73fad3e](https://github.com/patternslib/pat-upload/commit/73fad3e53608cba4662ff59e69503c3ec1af6f64))
+
+* JS submit event after upload. ([53d5af0](https://github.com/patternslib/pat-upload/commit/53d5af0bf09aeb62080040abcff3ee1125d80d52))After a successful upload, use JS submit event instead of the submit method.
+The submit method does not invoke a submit event and also does not validate the form.
+
 ## [3.1.0](https://github.com/patternslib/pat-upload/compare/3.0.0...3.1.0) (2022-09-20)
 
 
