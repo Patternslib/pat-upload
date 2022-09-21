@@ -2,6 +2,7 @@ import $ from "jquery";
 import _ from "underscore";
 import _t from "@patternslib/patternslib/src/core/i18n";
 import Base from "@patternslib/patternslib/src/core/base";
+import events from "@patternslib/patternslib/src/core/events";
 import logging from "@patternslib/patternslib/src/core/logging";
 import Parser from "@patternslib/patternslib/src/core/parser";
 
@@ -80,7 +81,7 @@ export default Base.extend({
             const form = this.el.closest("form");
             if (form && form.matches(".pat-inject")) {
                 log.debug("Refresh form");
-                form.submit();
+                form.dispatchEvent(events.submit_event());
             }
         }
     },
