@@ -140,7 +140,7 @@ export default Base.extend({
             if (this.cfgs.headers) {
                 options.headers = JSON.parse(this.cfgs.headers);
             }
-        } catch (e) {
+        } catch {
             log.warn("Could not parse the headers option");
         }
 
