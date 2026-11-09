@@ -41,7 +41,6 @@ export default Base.extend({
         }
 
         const Dropzone = (await import("dropzone")).default;
-        Dropzone.autoDiscover = false; // we do not want this plugin to auto discover
         this.template_preview = (await import("./templates/preview.html")).default;
         const template_upload = (await import("./templates/upload.html")).default;
 
