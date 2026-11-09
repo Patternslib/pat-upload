@@ -4,14 +4,14 @@
     "description": "A pattern for drag & drop file upload",
     "license": "MIT",
     "main": "./src/pat-upload.js",
+    "packageManager": "pnpm@12.16.1",
     "dependencies": {
+        "@patternslib/patternslib": "9.11.1",
         "dropzone": "^5.9.3",
-        "jquery": "^3.6.3",
         "underscore": "^1.13.6"
     },
     "devDependencies": {
-        "@patternslib/dev": "^4.4.0",
-        "@patternslib/patternslib": "9.11.1"
+        "@patternslib/dev": "^4.4.0"
     },
     "scripts": {
         "start": "NODE_ENV=development webpack serve --config webpack.config.js",
