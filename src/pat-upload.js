@@ -41,7 +41,6 @@ export default Base.extend({
         }
 
         const Dropzone = (await import("dropzone")).default;
-        Dropzone.autoDiscover = false; // we do not want this plugin to auto discover
         this.template_preview = (await import("./templates/preview.html")).default;
         const template_upload = (await import("./templates/upload.html")).default;
 
@@ -140,7 +139,7 @@ export default Base.extend({
             if (this.cfgs.headers) {
                 options.headers = JSON.parse(this.cfgs.headers);
             }
-        } catch (e) {
+        } catch {
             log.warn("Could not parse the headers option");
         }
 
